@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>糸島写真館｜桜撮影会2026 ご予約</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sp: #fdf0f3; --sl: #f9d0db; --sm: #e8a0b0;
+  --sd: #c4607a; --sk: #8b2e45;
+  --ink: #1a1018; --is: #4a3840; --im: #8a7078;
+  --gb: #fff8e8; --go: #c9a96e; --gr: #2d6a4f;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--sp); color:var(--ink); min-height:100vh; }
+.nav { position:fixed; top:0; left:0; right:0; z-index:1000; display:flex; justify-content:center; gap:4px; background:rgba(253,240,243,.97); backdrop-filter:blur(12px); border-bottom:1px solid var(--sl); padding:10px 16px; }
+.nav-btn { padding:8px 22px; border:1.5px solid transparent; background:transparent; font-family:'Shippori Mincho',serif; font-size:13px; color:var(--is); cursor:pointer; transition:all .3s; letter-spacing:.08em; border-radius:3px; }
+.nav-btn.active { background:var(--sk); color:white; border-color:var(--sk); }
+.nav-btn:hover:not(.active) { border-color:var(--sm); color:var(--sk); }
+.page { display:none; padding-top:60px; min-height:100vh; }
+.page.active { display:block; }
+
+/* HERO */
+.hero { padding:48px 20px 32px; text-align:center; }
+.sakura-float { font-size:24px; margin-bottom:10px; animation:fl 4s ease-in-out infinite; }
+@keyframes fl { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+.hero-eye { font-family:'Cormorant Garamond',serif; font-size:12px; letter-spacing:.3em; color:var(--sd); text-transform:uppercase; margin-bottom:10px; }
+.hero-title { font-family:'Shippori Mincho',serif; font-size:clamp(24px,6vw,40px); font-weight:600; line-height:1.45; margin-bottom:14px; }
+.hero-title span { color:var(--sd); }
+.hero-sub { font-size:13px; color:var(--im); line-height:1.9; max-width:380px; margin:0 auto 24px; }
+.chips { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; }
+.chip { background:white; border:1px solid var(--sl); padding:5px 14px; border-radius:100px; font-size:12px; color:var(--is); display:flex; align-items:center; gap:5px; }
+
+/* SECTIONS */
+.sw { max-width:640px; margin:0 auto; padding:0 16px 24px; }
+.sl-lbl { font-family:'Shippori Mincho',serif; font-size:11px; letter-spacing:.22em; color:var(--sd); text-transform:uppercase; margin-bottom:14px; text-align:center; }
+
+/* PLAN */
+.plan-card { background:white; border:2px solid var(--sd); border-radius:14px; padding:28px 22px 22px; position:relative; box-shadow:0 6px 28px rgba(139,46,69,.1); margin-bottom:16px; }
+.plan-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--sk); color:white; font-size:11px; padding:4px 20px; border-radius:100px; white-space:nowrap; font-family:'Shippori Mincho',serif; }
+.plan-name { font-family:'Shippori Mincho',serif; font-size:20px; font-weight:700; text-align:center; margin-bottom:18px; }
+.plan-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.plan-item { background:var(--sp); border-radius:10px; padding:12px 14px; text-align:center; }
+.pi-lbl { font-size:10px; color:var(--im); letter-spacing:.08em; margin-bottom:4px; }
+.pi-val { font-family:'Shippori Mincho',serif; font-size:16px; font-weight:600; }
+.plan-price-area { text-align:center; padding-top:16px; border-top:1px dashed var(--sl); }
+.ppa-lbl { font-size:11px; color:var(--im); margin-bottom:4px; }
+.ppa-num { font-family:'Cormorant Garamond',serif; font-size:48px; color:var(--sk); line-height:1; }
+.ppa-tax { font-size:12px; color:var(--im); margin-top:4px; }
+
+/* BENEFITS */
+.bc { background:var(--gb); border:1px solid rgba(201,169,110,.4); border-radius:12px; padding:18px 20px; margin-bottom:16px; }
+.bc-title { font-family:'Shippori Mincho',serif; font-size:14px; font-weight:600; color:#7a5500; margin-bottom:12px; }
+.bi { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:#5a4010; line-height:1.7; margin-bottom:6px; }
+
+/* REFERRAL */
+.rc { background:linear-gradient(135deg,#f0faf5,#e8f5ee); border:1px solid rgba(45,106,79,.25); border-radius:12px; padding:18px 20px; margin-bottom:8px; }
+.rc-title { font-family:'Shippori Mincho',serif; font-size:14px; font-weight:600; color:#1a4a32; margin-bottom:10px; }
+.rc-body { font-size:12px; color:#2d5a3d; line-height:1.85; }
+
+/* FORM */
+.fw { max-width:640px; margin:0 auto; padding:0 16px 60px; }
+.form-card { background:white; border-radius:16px; padding:26px 22px; box-shadow:0 4px 24px rgba(139,46,69,.08); border:1px solid rgba(232,160,176,.3); }
+.form-title { font-family:'Shippori Mincho',serif; font-size:17px; font-weight:600; margin-bottom:22px; padding-bottom:14px; border-bottom:1px solid var(--sl); }
+.fg { display:grid; gap:16px; }
+.fr { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.fg { display:flex; flex-direction:column; gap:6px; }
+.fl { font-size:12px; font-weight:500; color:var(--is); display:flex; align-items:center; gap:4px; }
+.req { color:var(--sd); font-size:10px; }
+input[type=text], input[type=tel], input[type=email], select, textarea {
+  padding:11px 13px; border:1.5px solid #e8dde0; border-radius:8px;
+  font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--ink);
+  background:#fffcfd; outline:none; width:100%; transition:border-color .2s,box-shadow .2s;
+}
+input[type=text]:focus, input[type=tel]:focus, input[type=email]:focus, select:focus, textarea:focus {
+  border-color:var(--sm); box-shadow:0 0 0 3px rgba(196,96,122,.08);
+}
+select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7078' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 13px center; }
+textarea { resize:vertical; min-height:72px; }
+
+/* DATE TABS */
+.date-tabs { display:flex; gap:8px; }
+.dt {
+  flex:1; padding:12px 8px; border:2px solid #e8dde0; border-radius:10px;
+  background:white; text-align:center; cursor:pointer;
+  transition:border-color .2s,background .2s;
+}
+.dt:hover { border-color:var(--sm); }
+.dt.on { border-color:var(--sd); background:rgba(196,96,122,.07); }
+.dt-lbl { font-size:15px; font-weight:600; font-family:'Shippori Mincho',serif; color:var(--ink); display:block; margin-bottom:2px; }
+.dt-sub { font-size:11px; color:var(--im); display:block; }
+.dt.on .dt-sub { color:var(--sd); }
+
+/* TIME SLOTS */
+.slots-wrap { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.slot-hint { font-size:11px; color:var(--im); text-align:center; grid-column:1/-1; margin-bottom:2px; }
+.st {
+  padding:12px 8px; border:2px solid #e8dde0; border-radius:10px;
+  background:white; text-align:center; cursor:pointer;
+  transition:border-color .2s,background .2s;
+}
+.st:hover { border-color:var(--sm); }
+.st.s1 { border-color:var(--sd); background:rgba(196,96,122,.07); }
+.st.s2 { border-color:var(--go); background:rgba(201,169,110,.08); }
+.st.sf { border-color:#ddd; background:#f5f5f5; cursor:not-allowed; opacity:.55; }
+.st-time { font-size:13px; font-weight:600; font-family:'Shippori Mincho',serif; color:var(--ink); display:block; margin-bottom:3px; }
+.st-badge { font-size:10px; display:inline-block; padding:2px 8px; border-radius:100px; margin-top:2px; }
+.b1 { background:var(--sd); color:white; }
+.b2 { background:var(--go); color:white; }
+.bf { background:#ddd; color:#999; }
+
+/* CONSENT */
+.cg { display:grid; gap:8px; }
+.co { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; border:1.5px solid #e8dde0; border-radius:8px; cursor:pointer; transition:border-color .2s,background .2s; }
+.co:has(input:checked) { border-color:var(--sd); background:rgba(196,96,122,.05); }
+.co input { width:15px; height:15px; flex-shrink:0; margin-top:2px; accent-color:var(--sd); }
+.co-text { font-size:13px; color:var(--is); line-height:1.6; }
+.co-text small { display:block; font-size:11px; color:var(--im); margin-top:2px; }
+
+/* REFERRAL INPUT */
+.ri { background:linear-gradient(135deg,#f0faf5,#e8f5ee); border:1px solid rgba(45,106,79,.2); border-radius:10px; padding:14px 16px; }
+.ri-lbl { font-size:12px; color:#2d5a3d; font-weight:500; margin-bottom:8px; }
+
+/* SUBMIT */
+.sub-btn { width:100%; padding:16px; background:linear-gradient(135deg,var(--sk),var(--sd)); color:white; border:none; border-radius:10px; font-family:'Shippori Mincho',serif; font-size:17px; font-weight:600; cursor:pointer; transition:transform .2s,box-shadow .2s; letter-spacing:.1em; margin-top:20px; }
+.sub-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(139,46,69,.3); }
+.priv { font-size:11px; color:var(--im); text-align:center; margin-top:10px; line-height:1.7; }
+
+/* SUCCESS */
+.sov { display:none; position:fixed; inset:0; background:rgba(253,240,243,.97); z-index:2000; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; }
+.sov.show { display:flex; }
+.sov-icon { font-size:60px; margin-bottom:20px; animation:fl 3s ease-in-out infinite; }
+.sov-title { font-family:'Shippori Mincho',serif; font-size:24px; font-weight:600; color:var(--sk); margin-bottom:12px; }
+.sov-msg { font-size:14px; color:var(--is); line-height:2; margin-bottom:24px; max-width:320px; }
+.line-btn { display:block; width:100%; max-width:280px; margin:0 auto 12px; padding:14px; background:#06C755; color:white; border:none; border-radius:10px; font-family:'Shippori Mincho',serif; font-size:16px; font-weight:600; cursor:pointer; text-align:center; text-decoration:none; letter-spacing:.08em; }
+.back-btn { padding:10px 28px; background:white; color:var(--is); border:1.5px solid #e8dde0; border-radius:8px; font-family:'Shippori Mincho',serif; font-size:14px; cursor:pointer; }
+
+/* ADMIN */
+.adh { background:var(--ink); padding:30px 20px 22px; text-align:center; }
+.adh-title { font-family:'Shippori Mincho',serif; font-size:19px; color:white; margin-bottom:3px; letter-spacing:.1em; }
+.adh-sub { font-size:11px; color:rgba(255,255,255,.35); letter-spacing:.15em; }
+.adb { max-width:900px; margin:0 auto; padding:22px 16px 60px; }
+
+/* FULL MANAGER */
+.fm-card { background:white; border-radius:12px; padding:18px 20px; border:1px solid var(--sl); margin-bottom:20px; }
+.fm-title { font-family:'Shippori Mincho',serif; font-size:14px; font-weight:600; color:var(--ink); margin-bottom:14px; }
+.fm-date-lbl { font-size:12px; color:var(--im); margin-bottom:8px; font-weight:500; }
+.fm-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:14px; }
+.fm-slot { padding:10px 6px; border-radius:8px; cursor:pointer; text-align:center; transition:all .2s; border:1.5px solid; }
+.fm-slot.open { border-color:rgba(45,106,79,.35); background:#f0faf5; }
+.fm-slot.full { border-color:#fcc; background:#fff5f5; }
+.fm-slot-time { font-size:11px; font-weight:600; font-family:'Shippori Mincho',serif; color:var(--ink); display:block; margin-bottom:3px; }
+.fm-slot-status { font-size:10px; display:block; }
+.fm-slot.open .fm-slot-status { color:var(--gr); }
+.fm-slot.full .fm-slot-status { color:#c44; }
+
+/* STATS */
+.sr { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:24px; }
+.sc { background:white; border-radius:12px; padding:16px; border:1px solid var(--sl); text-align:center; }
+.sc-num { font-family:'Cormorant Garamond',serif; font-size:34px; color:var(--sk); line-height:1; margin-bottom:4px; }
+.sc-lbl { font-size:11px; color:var(--im); }
+
+.ac { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
+.as { flex:1; min-width:180px; padding:10px 14px; border:1.5px solid #e0d5d8; border-radius:8px; font-size:13px; outline:none; font-family:'Noto Sans JP',sans-serif; }
+.fb { padding:9px 14px; border:1.5px solid #e0d5d8; border-radius:8px; background:white; font-size:12px; cursor:pointer; color:var(--is); font-family:'Noto Sans JP',sans-serif; }
+.fb.active { background:var(--sk); color:white; border-color:var(--sk); }
+.eb { padding:9px 18px; background:var(--ink); color:white; border:none; border-radius:8px; font-size:12px; cursor:pointer; font-family:'Noto Sans JP',sans-serif; }
+.bl { display:grid; gap:10px; }
+.bcard { background:white; border-radius:12px; padding:16px 18px; border:1px solid var(--sl); display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; cursor:pointer; }
+.bcard:hover { box-shadow:0 4px 16px rgba(139,46,69,.09); }
+.bav { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--sl),var(--sm)); display:flex; align-items:center; justify-content:center; font-family:'Shippori Mincho',serif; font-size:16px; font-weight:600; color:var(--sk); flex-shrink:0; }
+.bn { font-family:'Shippori Mincho',serif; font-size:15px; font-weight:600; margin-bottom:4px; }
+.bm { font-size:12px; color:var(--im); display:flex; flex-wrap:wrap; gap:10px; }
+.br { text-align:right; flex-shrink:0; }
+.bst { display:inline-block; font-size:11px; padding:3px 10px; border-radius:100px; margin-top:4px; }
+.st-new { background:rgba(45,106,79,.1); color:var(--gr); }
+.st-confirmed { background:rgba(196,96,122,.1); color:var(--sk); }
+.st-done { background:rgba(100,100,100,.1); color:#666; }
+.cbadge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:100px; }
+.cy { background:rgba(45,106,79,.1); color:var(--gr); }
+.cn { background:rgba(100,100,100,.1); color:#888; }
+.dp { display:none; grid-column:1/-1; padding-top:14px; margin-top:12px; border-top:1px solid var(--sl); font-size:12px; color:var(--is); line-height:1.8; }
+.bcard.open .dp { display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; }
+.di { display:flex; gap:6px; }
+.dk { color:var(--im); flex-shrink:0; }
+.ar { grid-column:1/-1; display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.ab { padding:6px 14px; border-radius:6px; font-size:12px; cursor:pointer; border:1.5px solid; font-family:'Noto Sans JP',sans-serif; }
+.ab-ok { background:var(--gr); color:white; border-color:var(--gr); }
+.ab-dn { background:white; color:#666; border-color:#ccc; }
+.ab-dl { background:white; color:#c44; border-color:#fcc; }
+.es { text-align:center; padding:60px 20px; color:var(--im); }
+
+@media (max-width:600px) {
+  .sr { grid-template-columns:repeat(2,1fr); }
+  .fr { grid-template-columns:1fr; }
+  .fm-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <button class="nav-btn active" id="nb" onclick="gotoBooking()">🌸 撮影会ご予約</button>
+  <button class="nav-btn" id="na" onclick="gotoAdmin()">📋 管理ダッシュボード</button>
+</nav>
+
+<!-- SUCCESS -->
+<div class="sov" id="sov">
+  <div class="sov-icon">🌸</div>
+  <div class="sov-title">内容を確認してください</div>
+  <div class="sov-msg" id="sovMsg"></div>
+  <a class="line-btn" id="lineBtn" href="#" target="_blank">📲　LINEで送信して予約を完了する</a>
+  <button class="back-btn" onclick="document.getElementById('sov').classList.remove('show')">戻る</button>
+</div>
+
+<!-- ===== BOOKING ===== -->
+<div class="page active" id="page-booking">
+  <div class="hero">
+    <div class="sakura-float">🌸 🌸 🌸</div>
+    <div class="hero-eye">Itoshima Photo Studio 2026</div>
+    <h1 class="hero-title">桜撮影会<br><span>LINEご登録者さま限定</span></h1>
+    <p class="hero-sub">糸島の桜が満開になるその瞬間に、<br>大切な人との時間を写真に残しませんか。</p>
+    <div class="chips">
+      <div class="chip">📅 3月28日（土）・3月29日（日）</div>
+      <div class="chip">⏱ 1組30分・各日5組限定</div>
+      <div class="chip">📍 糸島市内・桜スポット</div>
+    </div>
+  </div>
+
+  <div class="sw">
+    <div class="sl-lbl">▸ 撮影プラン</div>
+    <div class="plan-card">
+      <div class="plan-badge">🌸 2026 さくら撮影会プラン</div>
+      <div class="plan-name">桜ロケーションプラン</div>
+      <div class="plan-grid">
+        <div class="plan-item"><div class="pi-lbl">SHOOTING TIME</div><div class="pi-val">30分</div></div>
+        <div class="plan-item"><div class="pi-lbl">DATA DELIVERY</div><div class="pi-val">25カット</div></div>
+        <div class="plan-item"><div class="pi-lbl">PRINT GIFT</div><div class="pi-val" style="font-size:13px;">A4プリント<br><span style="font-size:11px;color:var(--im)">1枚プレゼント🎁</span></div></div>
+        <div class="plan-item"><div class="pi-lbl">DELIVERY</div><div class="pi-val" style="font-size:14px;">1週間以内</div></div>
+      </div>
+      <div class="plan-price-area">
+        <div class="ppa-lbl">LINE登録者様 特別料金</div>
+        <div class="ppa-num">¥25,000</div>
+        <div class="ppa-tax">税込 ／ 1組</div>
+      </div>
+    </div>
+
+    <div class="bc">
+      <div class="bc-title">🎁 ご予約特典</div>
+      <div class="bi"><span>📸</span><span>撮影データ25カット（セレクト済み・高解像度）をデータ納品</span></div>
+      <div class="bi"><span>🖼️</span><span>お気に入りの1枚を<strong>A4プリント（297×210mm）</strong>でプレゼント。額に入れてそのまま飾れる、糸島写真館こだわりの仕上がり。</span></div>
+      <div class="bi"><span>📍</span><span>糸島の桜スポットは当館がベストな場所をご提案。撮影当日まで開花状況を確認してご案内します。</span></div>
+    </div>
+
+    <div class="rc">
+      <div class="rc-title">👫 お友達紹介キャンペーン</div>
+      <div class="rc-body">ご友人・ご家族をご紹介いただいた場合、<br><strong>紹介した方・された方、どちらにも</strong>撮影データ<strong>＋5カット追加</strong>プレゼント！<br><span style="font-size:11px;margin-top:4px;display:block;opacity:.8">※ご予約フォームに紹介者のお名前をご記入ください。</span></div>
+    </div>
+  </div>
+
+  <div class="fw">
+    <div class="sl-lbl">▸ ご予約フォーム</div>
+    <div class="form-card">
+      <div class="form-title">📝 お客様情報・希望日時</div>
+      <div class="fg">
+
+        <div class="fr">
+          <div class="fg"><div class="fl">お名前（姓）<span class="req">必須</span></div><input type="text" id="lastName" placeholder="糸島"></div>
+          <div class="fg"><div class="fl">お名前（名）<span class="req">必須</span></div><input type="text" id="firstName" placeholder="花子"></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><div class="fl">フリガナ（姓）<span class="req">必須</span></div><input type="text" id="lastNameKana" placeholder="イトシマ"></div>
+          <div class="fg"><div class="fl">フリガナ（名）<span class="req">必須</span></div><input type="text" id="firstNameKana" placeholder="ハナコ"></div>
+        </div>
+        <div class="fg"><div class="fl">電話番号<span class="req">必須</span></div><input type="tel" id="phone" placeholder="090-1234-5678"></div>
+        <div class="fg"><div class="fl">メールアドレス</div><input type="email" id="email" placeholder="hanako@example.com"></div>
+        <div class="fg"><div class="fl">ご住所<span class="req">必須</span></div><input type="text" id="address" placeholder="福岡県糸島市前原中央〇〇"></div>
+
+        <div class="fg">
+          <div class="fl">撮影希望日<span class="req">必須</span></div>
+          <div class="date-tabs">
+            <div class="dt on" id="dt28" onclick="changeDate('2026-03-28','dt28','dt29')">
+              <span class="dt-lbl">3月28日</span>
+              <span class="dt-sub">土曜日</span>
+            </div>
+            <div class="dt" id="dt29" onclick="changeDate('2026-03-29','dt29','dt28')">
+              <span class="dt-lbl">3月29日</span>
+              <span class="dt-sub">日曜日</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="fg">
+          <div class="fl">希望時間帯<span class="req">必須</span></div>
+          <div class="slots-wrap" id="slotsWrap"></div>
+        </div>
+
+        <div class="fg">
+          <div class="fl">撮影される方<span class="req">必須</span></div>
+          <select id="members">
+            <option value="">お選びください</option>
+            <option>おひとり</option>
+            <option>カップル・ご夫婦</option>
+            <option>家族（お子様1人）</option>
+            <option>家族（お子様2人）</option>
+            <option>家族（お子様3人以上）</option>
+            <option>その他</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <div class="fl">SNS・HPへの写真掲載について<span class="req">必須</span></div>
+          <div class="cg">
+            <label class="co">
+              <input type="radio" name="consent" value="all" checked>
+              <div class="co-text">掲載可（SNS・HP どちらも可）<small>Instagram・ホームページ等への掲載にご協力をお願いいたします</small></div>
+            </label>
+            <label class="co">
+              <input type="radio" name="consent" value="none">
+              <div class="co-text">掲載は不可</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="ri">
+          <div class="ri-lbl">👫 ご紹介者のお名前</div>
+          <input type="text" id="referrer" placeholder="例：山田 太郎 様にご紹介いただきました">
+        </div>
+
+        <div class="fg">
+          <div class="fl">お子様のお名前・年齢</div>
+          <textarea id="notes" placeholder="お子様のお名前・年齢、ご相談などをご記入ください。"></textarea>
+        </div>
+
+      </div>
+      <button class="sub-btn" onclick="doSubmit()">🌸　次へ進む　🌸</button>
+      <p class="priv">ご入力いただいた情報は予約管理・ご連絡の目的のみに使用します。第三者への提供は一切行いません。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN ===== -->
+<div class="page" id="page-admin">
+  <div class="adh">
+    <div class="adh-title">糸島写真館｜予約管理ダッシュボード</div>
+    <div class="adh-sub">ITOSHIMA PHOTO STUDIO ／ BOOKING MANAGER</div>
+  </div>
+  <div class="adb">
+
+    <div class="fm-card">
+      <div class="fm-title">⚙️ 満枠管理（タップで空き／満枠を切り替え）</div>
+      <div class="fm-date-lbl">3月28日（土）</div>
+      <div class="fm-grid" id="fm328"></div>
+      <div class="fm-date-lbl">3月29日（日）</div>
+      <div class="fm-grid" id="fm329"></div>
+    </div>
+
+    <div class="sr">
+      <div class="sc"><div class="sc-num" id="stTotal">0</div><div class="sc-lbl">総予約数</div></div>
+      <div class="sc"><div class="sc-num" id="stNew">0</div><div class="sc-lbl">新規（未確認）</div></div>
+      <div class="sc"><div class="sc-num" id="stConf">0</div><div class="sc-lbl">確定済み</div></div>
+      <div class="sc"><div class="sc-num" id="stRev">¥0</div><div class="sc-lbl">予想売上</div></div>
+    </div>
+
+    <div class="ac">
+      <input class="as" id="searchInput" placeholder="🔍　名前・電話番号で検索..." oninput="renderBookings()">
+      <button class="fb active" onclick="setFilter('all',this)">すべて</button>
+      <button class="fb" onclick="setFilter('new',this)">新規</button>
+      <button class="fb" onclick="setFilter('confirmed',this)">確定</button>
+      <button class="fb" onclick="setFilter('done',this)">完了</button>
+      <button class="eb" onclick="doCSV()">📥 CSV出力</button>
+    </div>
+
+    <div class="bl" id="bookingList"><div class="es"><p>🌸 まだご予約はありません</p></div></div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+var bookings = [];
+var slotFull = {};
+var curFilter = 'all';
+var curDate = '2026-03-28';
+var selFirst = '';
+var selSecond = '';
+var adminOK = false;
+
+var SLOTS = [
+  {label:'10:00〜10:30', val:'10:00'},
+  {label:'10:45〜11:15', val:'10:45'},
+  {label:'11:30〜12:00', val:'11:30'},
+  {label:'13:00〜13:30', val:'13:00'},
+  {label:'13:45〜14:15', val:'13:45'}
+];
+
+function loadData() {
+  try { bookings = JSON.parse(localStorage.getItem('ito_v4') || '[]'); } catch(e){ bookings=[]; }
+  try { slotFull = JSON.parse(localStorage.getItem('ito_full') || '{}'); } catch(e){ slotFull={}; }
+}
+function saveData() {
+  localStorage.setItem('ito_v4', JSON.stringify(bookings));
+  localStorage.setItem('ito_full', JSON.stringify(slotFull));
+}
+
+// ===== NAV =====
+function gotoBooking() {
+  document.getElementById('page-booking').classList.add('active');
+  document.getElementById('page-admin').classList.remove('active');
+  document.getElementById('nb').classList.add('active');
+  document.getElementById('na').classList.remove('active');
+}
+function gotoAdmin() {
+  if (!adminOK) {
+    var pw = prompt('パスワードを入力してください。');
+    if (!pw) return;
+    if (pw !== 'itoshima.camera2022') { alert('パスワードが違います。'); return; }
+    adminOK = true;
+  }
+  document.getElementById('page-admin').classList.add('active');
+  document.getElementById('page-booking').classList.remove('active');
+  document.getElementById('na').classList.add('active');
+  document.getElementById('nb').classList.remove('active');
+  renderFM();
+  renderBookings();
+}
+
+// ===== DATE =====
+function changeDate(date, onId, offId) {
+  curDate = date;
+  selFirst = '';
+  selSecond = '';
+  document.getElementById(onId).classList.add('on');
+  document.getElementById(offId).classList.remove('on');
+  renderSlots();
+}
+
+// ===== SLOTS =====
+function renderSlots() {
+  var wrap = document.getElementById('slotsWrap');
+  var fullList = slotFull[curDate] || [];
+  var html = '<div class="slot-hint">タップで第一希望・第二希望を選んでください</div>';
+  for (var i = 0; i < SLOTS.length; i++) {
+    var s = SLOTS[i];
+    var isFull = fullList.indexOf(s.val) >= 0;
+    var isF = selFirst === s.val;
+    var isS = selSecond === s.val;
+    var cls = 'st';
+    if (isFull) cls += ' sf';
+    else if (isF) cls += ' s1';
+    else if (isS) cls += ' s2';
+    var badge = '';
+    if (isFull) badge = '<span class="st-badge bf">満枠</span>';
+    else if (isF) badge = '<span class="st-badge b1">第一希望</span>';
+    else if (isS) badge = '<span class="st-badge b2">第二希望</span>';
+    var oc = isFull ? '' : ' onclick="pickSlot(\'' + s.val + '\')"';
+    html += '<div class="' + cls + '"' + oc + '><span class="st-time">' + s.label + '</span>' + badge + '</div>';
+  }
+  wrap.innerHTML = html;
+}
+
+function pickSlot(v) {
+  if (selFirst === v) {
+    selFirst = selSecond;
+    selSecond = '';
+  } else if (selSecond === v) {
+    selSecond = '';
+  } else if (!selFirst) {
+    selFirst = v;
+  } else if (!selSecond) {
+    selSecond = v;
+  } else {
+    selFirst = v;
+    selSecond = '';
+  }
+  renderSlots();
+}
+
+function slotLabel(v) {
+  for (var i = 0; i < SLOTS.length; i++) if (SLOTS[i].val === v) return SLOTS[i].label;
+  return v;
+}
+
+// ===== SUBMIT =====
+function doSubmit() {
+  var ln = document.getElementById('lastName').value.trim();
+  var fn = document.getElementById('firstName').value.trim();
+  var lk = document.getElementById('lastNameKana').value.trim();
+  var fk = document.getElementById('firstNameKana').value.trim();
+  var ph = document.getElementById('phone').value.trim();
+  var ad = document.getElementById('address').value.trim();
+  var mb = document.getElementById('members').value;
+  if (!ln||!fn) { alert('お名前をご入力ください。'); return; }
+  if (!lk||!fk) { alert('フリガナをご入力ください。'); return; }
+  if (!ph) { alert('電話番号をご入力ください。'); return; }
+  if (!ad) { alert('ご住所をご入力ください。'); return; }
+  if (!selFirst) { alert('第一希望の時間帯をお選びください。'); return; }
+  if (!mb) { alert('撮影される方を選択してください。'); return; }
+
+  var ce = document.querySelector('input[name="consent"]:checked');
+  var cv = ce ? ce.value : 'none';
+  var cl = cv === 'all' ? '掲載可（SNS・HP）' : '掲載不可';
+  var em = document.getElementById('email').value.trim();
+  var rf = document.getElementById('referrer').value.trim();
+  var nt = document.getElementById('notes').value.trim();
+  var dl = curDate === '2026-03-28' ? '3月28日（土）' : '3月29日（日）';
+  var fl = slotLabel(selFirst);
+  var sl2 = selSecond ? slotLabel(selSecond) : '';
+
+  var b = {
+    id: Date.now(),
+    lastName:ln, firstName:fn, lastNameKana:lk, firstNameKana:fk,
+    phone:ph, email:em, address:ad,
+    prefDate:curDate, dateLabel:dl,
+    prefFirst:selFirst, firstLabel:fl,
+    prefSecond:selSecond, secondLabel:sl2,
+    members:mb, consent:cv, consentLabel:cl,
+    referrer:rf, notes:nt,
+    price:25000, status:'new',
+    createdAt:new Date().toISOString()
+  };
+  bookings.unshift(b);
+  saveData();
+
+  // Formspree
+  try {
+    fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        _subject:'【桜撮影会2026 予約】'+ln+fn+' 様 / '+dl+' '+fl,
+        _replyto:em||ph,
+        姓:ln,名:fn,セイ:lk,メイ:fk,電話:ph,メール:em||'未記入',住所:ad,
+        撮影日:dl,第一希望:fl,第二希望:sl2||'なし',人数:mb,
+        プラン:'桜ロケーションプラン',料金:'¥25,000',
+        写真掲載:cl,紹介者:rf||'なし',備考:nt||'なし'
+      })
+    });
+  } catch(e){}
+
+  // LINE
+  var msg = '【桜撮影会2026 ご予約】\n'
+    +'━━━━━━━━━━━━\n'
+    +'お名前：'+ln+' '+fn+'（'+lk+' '+fk+'）\n'
+    +'電話番号：'+ph+'\n'
+    +(em?'メール：'+em+'\n':'')
+    +'住所：'+ad+'\n'
+    +'━━━━━━━━━━━━\n'
+    +'撮影日：'+dl+'\n'
+    +'第一希望：'+fl+'\n'
+    +(sl2?'第二希望：'+sl2+'\n':'')
+    +'撮影人数：'+mb+'\n'
+    +'━━━━━━━━━━━━\n'
+    +'プラン：桜ロケーションプラン\n'
+    +'料金：¥25,000\n'
+    +'写真掲載：'+cl+'\n'
+    +(rf?'紹介者：'+rf+'\n':'')
+    +(nt?'備考：'+nt+'\n':'')
+    +'━━━━━━━━━━━━';
+
+  document.getElementById('lineBtn').href = 'https://line.me/R/oaMessage/@itoshima.camera/?text='+encodeURIComponent(msg);
+  document.getElementById('sovMsg').innerHTML =
+    '<strong>'+ln+' '+fn+' 様</strong><br><br>'
+    +dl+' '+fl+(sl2?'（第二希望：'+sl2+'）':'')+'<br>のご予約内容を確認してください。<br><br>'
+    +'下の緑色のボタンを押してLINEで送信すると、<strong>予約が完了</strong>します。'
+    +(rf?'<br><br>🎁 紹介特典（データ+5カット）を適用いたします。':'');
+  document.getElementById('sov').classList.add('show');
+  resetForm();
+}
+
+function resetForm() {
+  ['lastName','firstName','lastNameKana','firstNameKana','phone','email','address','referrer','notes'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('members').selectedIndex = 0;
+  var r = document.querySelector('input[name="consent"][value="all"]');
+  if (r) r.checked = true;
+  curDate = '2026-03-28';
+  selFirst = '';
+  selSecond = '';
+  document.getElementById('dt28').classList.add('on');
+  document.getElementById('dt29').classList.remove('on');
+  renderSlots();
+}
+
+// ===== FULL MANAGER =====
+function renderFM() {
+  [['2026-03-28','fm328'],['2026-03-29','fm329']].forEach(function(pair) {
+    var date = pair[0], id = pair[1];
+    var el = document.getElementById(id);
+    if (!el) return;
+    var fl = slotFull[date] || [];
+    el.innerHTML = SLOTS.map(function(s) {
+      var full = fl.indexOf(s.val) >= 0;
+      return '<div class="fm-slot '+(full?'full':'open')+'" onclick="toggleFull(\''+date+'\',\''+s.val+'\')">'
+        +'<span class="fm-slot-time">'+s.label+'</span>'
+        +'<span class="fm-slot-status">'+(full?'● 満枠':'○ 空き')+'</span>'
+        +'</div>';
+    }).join('');
+  });
+}
+
+function toggleFull(date, val) {
+  if (!slotFull[date]) slotFull[date] = [];
+  var idx = slotFull[date].indexOf(val);
+  if (idx >= 0) slotFull[date].splice(idx,1);
+  else slotFull[date].push(val);
+  saveData();
+  renderFM();
+  renderSlots();
+}
+
+// ===== ADMIN =====
+function renderBookings() {
+  updateStats();
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  var list = bookings.filter(function(b) {
+    var mf = curFilter==='all' || b.status===curFilter;
+    var ms = !search || (b.lastName+b.firstName).indexOf(search)>=0 || b.phone.indexOf(search)>=0 || (b.lastNameKana+b.firstNameKana).toLowerCase().indexOf(search)>=0;
+    return mf && ms;
+  });
+  var el = document.getElementById('bookingList');
+  if (!list.length) { el.innerHTML='<div class="es"><p>🌸 該当する予約がありません</p></div>'; return; }
+  var sl={'new':'新規','confirmed':'確定','done':'完了'};
+  var sc={'new':'st-new','confirmed':'st-confirmed','done':'st-done'};
+  el.innerHTML = list.map(function(b) {
+    var cb = b.consent==='all'?'<span class="cbadge cy">SNS・HP可</span>':'<span class="cbadge cn">掲載不可</span>';
+    return '<div class="bcard" id="bc'+b.id+'" onclick="toggleBC('+b.id+')">'
+      +'<div class="bav">'+b.lastName.charAt(0)+'</div>'
+      +'<div><div class="bn">'+b.lastName+' '+b.firstName+' <span style="font-size:11px;color:var(--im);font-weight:400">（'+b.lastNameKana+' '+b.firstNameKana+'）</span></div>'
+      +'<div class="bm"><span>📅 '+b.dateLabel+'</span><span>⏰ '+b.firstLabel+(b.secondLabel?' / '+b.secondLabel:'')+'</span><span>👥 '+b.members+'</span><span>📞 '+b.phone+'</span></div></div>'
+      +'<div class="br">'+cb+'<div><span class="bst '+sc[b.status]+'">'+sl[b.status]+'</span></div><div style="font-size:12px;color:var(--im);margin-top:4px;">¥'+b.price.toLocaleString()+'</div></div>'
+      +'<div class="dp">'
+      +(b.email?'<div class="di"><span class="dk">メール：</span>'+b.email+'</div>':'')
+      +(b.address?'<div class="di"><span class="dk">住所：</span>'+b.address+'</div>':'')
+      +'<div class="di"><span class="dk">掲載：</span>'+b.consentLabel+'</div>'
+      +(b.referrer?'<div class="di"><span class="dk">紹介者：</span>🎁 '+b.referrer+'</div>':'')
+      +(b.notes?'<div class="di" style="grid-column:1/-1"><span class="dk">備考：</span>'+b.notes+'</div>':'')
+      +'<div class="di"><span class="dk">受付：</span>'+new Date(b.createdAt).toLocaleString('ja-JP')+'</div>'
+      +'<div class="ar">'
+      +(b.status==='new'?'<button class="ab ab-ok" onclick="updStatus(event,'+b.id+',\'confirmed\')">✓ 予約確定</button>':'')
+      +(b.status==='confirmed'?'<button class="ab ab-dn" onclick="updStatus(event,'+b.id+',\'done\')">✓ 撮影完了</button>':'')
+      +'<button class="ab ab-dl" onclick="delB(event,'+b.id+')">🗑 削除</button>'
+      +'</div></div></div>';
+  }).join('');
+}
+
+function toggleBC(id) { var el=document.getElementById('bc'+id); if(el) el.classList.toggle('open'); }
+function updStatus(e,id,st) {
+  e.stopPropagation();
+  for(var i=0;i<bookings.length;i++) if(bookings[i].id===id){bookings[i].status=st;break;}
+  saveData(); renderBookings();
+}
+function delB(e,id) {
+  e.stopPropagation();
+  if(!confirm('この予約を削除しますか？')) return;
+  bookings=bookings.filter(function(b){return b.id!==id;});
+  saveData(); renderBookings();
+}
+function updateStats() {
+  document.getElementById('stTotal').textContent=bookings.length;
+  document.getElementById('stNew').textContent=bookings.filter(function(b){return b.status==='new';}).length;
+  document.getElementById('stConf').textContent=bookings.filter(function(b){return b.status==='confirmed';}).length;
+  var r=0; for(var i=0;i<bookings.length;i++) r+=bookings[i].price;
+  document.getElementById('stRev').textContent='¥'+r.toLocaleString();
+}
+function setFilter(f,el) {
+  curFilter=f;
+  document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+  renderBookings();
+}
+function doCSV() {
+  if(!bookings.length){alert('データがありません。');return;}
+  var h=['ID','姓','名','セイ','メイ','電話','メール','住所','希望日','第一希望','第二希望','人数','掲載','紹介者','料金','状態','備考','受付日時'];
+  var rows=bookings.map(function(b){
+    return [b.id,b.lastName,b.firstName,b.lastNameKana,b.firstNameKana,
+      b.phone,b.email,b.address,b.dateLabel,b.firstLabel,b.secondLabel||'',
+      b.members,b.consentLabel,b.referrer,b.price,b.status,b.notes,
+      new Date(b.createdAt).toLocaleString('ja-JP')];
+  });
+  var csv='\uFEFF'+[h].concat(rows).map(function(r){return r.map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+  a.download='itoshima_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+
+// Init
+loadData();
+renderSlots();
+</script>
+</body>
+</html>

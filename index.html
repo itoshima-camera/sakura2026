@@ -222,9 +222,7 @@ textarea { resize:vertical; min-height:72px; }
     <h1 class="hero-title">桜撮影会<br><span>LINEご登録者さま限定</span></h1>
     <p class="hero-sub">糸島の桜が満開になるその瞬間に、<br>大切な人との時間を写真に残しませんか。</p>
     <div class="chips">
-      <div class="chip">📅 3月28日（土）・3月29日（日）</div>
-      <div class="chip">⏱ 1組30分・各日5組限定</div>
-      <div class="chip">📍 糸島市内・桜スポット</div>
+      <div class="chip" style="background:#fff0f0;border-color:#fcc;color:#c44;">🙏 受付終了・満席御礼</div>
     </div>
   </div>
 
@@ -260,7 +258,27 @@ textarea { resize:vertical; min-height:72px; }
   </div>
 
   <div class="fw">
-    <div class="sl-lbl">▸ ご予約フォーム</div>
+    <div class="form-card" style="text-align:center;padding:48px 22px;">
+      <div style="font-size:48px;margin-bottom:20px;">🌸</div>
+      <div style="font-family:'Shippori Mincho',serif;font-size:22px;font-weight:700;color:var(--sk);margin-bottom:16px;">受付終了</div>
+      <div style="font-size:14px;color:var(--is);line-height:2;margin-bottom:24px;">
+        おかげさまで桜撮影会2026の<br>全枠が満席となりました。<br><br>
+        たくさんのご予約ありがとうございます🙏<br><br>
+        平日開催をご希望の方は<br>
+        公式LINEに <strong>「平日希望」</strong> とご返信ください。<br>
+        応募多数の場合、追加開催いたします。
+      </div>
+      <button onclick="openWaitForm('cancel')"
+        style="display:block;width:100%;max-width:280px;margin:0 auto 12px;padding:14px;background:var(--sk);color:white;border:none;border-radius:10px;font-family:'Shippori Mincho',serif;font-size:16px;font-weight:600;cursor:pointer;letter-spacing:.08em;">
+        🌸　キャンセル待ちを希望する
+      </button>
+      <button onclick="openWaitForm('weekday')"
+        style="display:block;width:100%;max-width:280px;margin:0 auto;padding:14px;background:#06C755;color:white;border:none;border-radius:10px;font-family:'Shippori Mincho',serif;font-size:16px;font-weight:600;cursor:pointer;letter-spacing:.08em;">
+        📲　平日開催を希望する
+      </button>
+    </div>
+  </div>
+  <div style="display:none">
     <div class="form-card">
       <div class="form-title">📝 お客様情報・希望日時</div>
       <div class="fg">
@@ -338,6 +356,72 @@ textarea { resize:vertical; min-height:72px; }
       <p class="priv">ご入力いただいた情報は予約管理・ご連絡の目的のみに使用します。第三者への提供は一切行いません。</p>
     </div>
   </div>
+  </div>
+</div>
+
+<!-- WAIT FORM -->
+<div class="sov" id="waitForm">
+  <div style="width:100%;max-width:480px;background:white;border-radius:16px;padding:28px 22px;box-shadow:0 8px 32px rgba(139,46,69,.15);max-height:90vh;overflow-y:auto;">
+    <div id="waitFormTitle" style="font-family:'Shippori Mincho',serif;font-size:18px;font-weight:700;color:var(--sk);margin-bottom:6px;text-align:center;"></div>
+    <div style="font-size:12px;color:var(--im);text-align:center;margin-bottom:20px;">お客様情報をご記入のうえLINEで送信してください</div>
+    <div style="display:grid;gap:14px;">
+      <div class="fr">
+        <div class="fg"><div class="fl">お名前（姓）<span class="req">必須</span></div><input type="text" id="wLastName" placeholder="糸島"></div>
+        <div class="fg"><div class="fl">お名前（名）<span class="req">必須</span></div><input type="text" id="wFirstName" placeholder="花子"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><div class="fl">フリガナ（姓）<span class="req">必須</span></div><input type="text" id="wLastNameKana" placeholder="イトシマ"></div>
+        <div class="fg"><div class="fl">フリガナ（名）<span class="req">必須</span></div><input type="text" id="wFirstNameKana" placeholder="ハナコ"></div>
+      </div>
+      <div class="fg"><div class="fl">電話番号<span class="req">必須</span></div><input type="tel" id="wPhone" placeholder="090-1234-5678"></div>
+      <div class="fg"><div class="fl">メールアドレス</div><input type="email" id="wEmail" placeholder="hanako@example.com"></div>
+      <div class="fg"><div class="fl">ご住所<span class="req">必須</span></div><input type="text" id="wAddress" placeholder="福岡県糸島市前原中央〇〇"></div>
+      <div class="fg"><div class="fl">撮影される方<span class="req">必須</span></div>
+        <select id="wMembers">
+          <option value="">お選びください</option>
+          <option>おひとり</option>
+          <option>カップル・ご夫婦</option>
+          <option>家族（お子様1人）</option>
+          <option>家族（お子様2人）</option>
+          <option>家族（お子様3人以上）</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div id="wDateGroup" class="fg" style="display:none;">
+        <div class="fl">希望日</div>
+        <select id="wDate">
+          <option value="">お選びください</option>
+          <option value="3月28日（土）">3月28日（土）</option>
+          <option value="3月29日（日）">3月29日（日）</option>
+          <option value="どちらでも可">どちらでも可</option>
+        </select>
+      </div>
+      <div id="wWeekdayGroup" class="fg" style="display:none;">
+        <div class="fl">ご希望の曜日・時間帯</div>
+        <input type="text" id="wWeekday" placeholder="例：火・水曜日の午前中">
+      </div>
+      <div class="fg">
+        <div class="fl">SNS・HPへの写真掲載について<span class="req">必須</span></div>
+        <div class="cg">
+          <label class="co"><input type="radio" name="wConsent" value="all" checked><div class="co-text">掲載可（SNS・HP どちらも可）<small>Instagram・ホームページ等への掲載にご協力をお願いいたします</small></div></label>
+          <label class="co"><input type="radio" name="wConsent" value="none"><div class="co-text">掲載は不可</div></label>
+        </div>
+      </div>
+      <div class="ri">
+        <div class="ri-lbl">👫 ご紹介者のお名前</div>
+        <input type="text" id="wReferrer" placeholder="例：山田 太郎 様にご紹介いただきました">
+      </div>
+      <div class="fg"><div class="fl">お子様のお名前・年齢</div><textarea id="wNotes" placeholder="お子様のお名前・年齢、ご相談などをご記入ください。" style="min-height:60px;"></textarea></div>
+    </div>
+    <button onclick="submitWaitForm()"
+      style="width:100%;padding:14px;background:#06C755;color:white;border:none;border-radius:10px;font-family:'Shippori Mincho',serif;font-size:16px;font-weight:600;cursor:pointer;margin-top:20px;letter-spacing:.08em;">
+      📲　LINEで送信して登録完了
+    </button>
+    <button onclick="document.getElementById('waitForm').classList.remove('show')"
+      style="width:100%;padding:10px;background:transparent;color:var(--im);border:none;font-size:13px;cursor:pointer;margin-top:8px;">
+      戻る
+    </button>
+  </div>
 </div>
 
 <!-- ===== ADMIN ===== -->
@@ -386,13 +470,12 @@ var selFirst = '';
 var selSecond = '';
 var adminOK = false;
 
-var SLOTS = [
-  {label:'10:00〜10:30', val:'10:00'},
-  {label:'10:45〜11:15', val:'10:45'},
-  {label:'11:30〜12:00', val:'11:30'},
-  {label:'13:00〜13:30', val:'13:00'},
-  {label:'13:45〜14:15', val:'13:45'}
+// 3月28日：10:00枠のみ残り、29日は全枠満席のため非表示
+var SLOTS_328 = [
+  {label:'10:00〜10:30', val:'10:00'}
 ];
+var SLOTS_329 = [];
+var SLOTS = SLOTS_328;
 
 function loadData() {
   try { bookings = JSON.parse(localStorage.getItem('ito_v4') || '[]'); } catch(e){ bookings=[]; }
@@ -438,6 +521,11 @@ function changeDate(date, onId, offId) {
 // ===== SLOTS =====
 function renderSlots() {
   var wrap = document.getElementById('slotsWrap');
+  SLOTS = curDate === '2026-03-28' ? SLOTS_328 : SLOTS_329;
+  if (SLOTS.length === 0) {
+    wrap.innerHTML = '<div class="slot-hint" style="color:#c44;font-weight:600;">この日は満席です。3月28日（土）をお選びください。</div>';
+    return;
+  }
   var fullList = slotFull[curDate] || [];
   var html = '<div class="slot-hint">タップで第一希望・第二希望を選んでください</div>';
   for (var i = 0; i < SLOTS.length; i++) {
@@ -540,23 +628,23 @@ function doSubmit() {
 
   // LINE
   var msg = '【桜撮影会2026 ご予約】\n'
-    +'━━━━━━━━━━━━\n'
+    +'------------\n'
     +'お名前：'+ln+' '+fn+'（'+lk+' '+fk+'）\n'
     +'電話番号：'+ph+'\n'
     +(em?'メール：'+em+'\n':'')
     +'住所：'+ad+'\n'
-    +'━━━━━━━━━━━━\n'
+    +'------------\n'
     +'撮影日：'+dl+'\n'
     +'第一希望：'+fl+'\n'
     +(sl2?'第二希望：'+sl2+'\n':'')
     +'撮影人数：'+mb+'\n'
-    +'━━━━━━━━━━━━\n'
+    +'------------\n'
     +'プラン：桜ロケーションプラン\n'
     +'料金：¥25,000\n'
     +'写真掲載：'+cl+'\n'
     +(rf?'紹介者：'+rf+'\n':'')
     +(nt?'備考：'+nt+'\n':'')
-    +'━━━━━━━━━━━━';
+    +'------------';
 
   document.getElementById('lineBtn').href = 'https://line.me/R/oaMessage/@itoshima.camera/?text='+encodeURIComponent(msg);
   document.getElementById('sovMsg').innerHTML =
@@ -682,6 +770,76 @@ function doCSV() {
   a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
   a.download='itoshima_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click();
+}
+
+// ===== WAIT FORM =====
+var waitType = '';
+
+function openWaitForm(type) {
+  waitType = type;
+  var title = document.getElementById('waitFormTitle');
+  var dateGrp = document.getElementById('wDateGroup');
+  var wdGrp = document.getElementById('wWeekdayGroup');
+  if (type === 'cancel') {
+    title.textContent = '🌸 キャンセル待ち登録';
+    dateGrp.style.display = 'block';
+    wdGrp.style.display = 'none';
+  } else {
+    title.textContent = '📲 平日開催 希望登録';
+    dateGrp.style.display = 'none';
+    wdGrp.style.display = 'block';
+  }
+  ['wLastName','wFirstName','wLastNameKana','wFirstNameKana','wPhone','wEmail','wAddress','wReferrer','wNotes','wWeekday'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('wDate') && (document.getElementById('wDate').selectedIndex = 0);
+  document.getElementById('waitForm').classList.add('show');
+}
+
+function submitWaitForm() {
+  var ln  = document.getElementById('wLastName').value.trim();
+  var fn  = document.getElementById('wFirstName').value.trim();
+  var lk  = document.getElementById('wLastNameKana').value.trim();
+  var fk  = document.getElementById('wFirstNameKana').value.trim();
+  var ph  = document.getElementById('wPhone').value.trim();
+  var ad  = document.getElementById('wAddress').value.trim();
+  var mb  = document.getElementById('wMembers').value;
+  if (!ln||!fn)  { alert('お名前をご入力ください。'); return; }
+  if (!lk||!fk)  { alert('フリガナをご入力ください。'); return; }
+  if (!ph)        { alert('電話番号をご入力ください。'); return; }
+  if (!ad)        { alert('ご住所をご入力ください。'); return; }
+  if (!mb)        { alert('撮影される方を選択してください。'); return; }
+  var em  = document.getElementById('wEmail').value.trim();
+  var rf  = document.getElementById('wReferrer').value.trim();
+  var nt  = document.getElementById('wNotes').value.trim();
+  var ce  = document.querySelector('input[name="wConsent"]:checked');
+  var cl  = ce && ce.value === 'all' ? '掲載可（SNS・HP）' : '掲載不可';
+  var sep = '\n' + '------------' + '\n';
+  var msg = '';
+  var base = '【' + (waitType === 'cancel' ? 'キャンセル待ち希望' : '平日開催 希望') + '】\n'
+    + '------------\n'
+    + 'お名前：' + ln + ' ' + fn + '（' + lk + ' ' + fk + '）\n'
+    + '電話番号：' + ph + '\n'
+    + (em ? 'メール：' + em + '\n' : '')
+    + '住所：' + ad + '\n'
+    + '撮影人数：' + mb + '\n';
+  if (waitType === 'cancel') {
+    var dt = document.getElementById('wDate').value;
+    msg = base
+      + '希望日：' + (dt || '未選択') + '\n'
+      + '写真掲載：' + cl + '\n'
+      + (rf ? '紹介者：' + rf + '\n' : '')
+      + (nt ? '備考：' + nt + '\n' : '')
+      + '------------';
+  } else {
+    var wd = document.getElementById('wWeekday').value.trim();
+    msg = base
+      + '希望曜日・時間帯：' + (wd || '未記入') + '\n'
+      + '写真掲載：' + cl + '\n'
+      + (rf ? '紹介者：' + rf + '\n' : '')
+      + (nt ? '備考：' + nt + '\n' : '')
+      + '------------';
+  }
+  window.open('https://line.me/R/oaMessage/@itoshima.camera/?text=' + encodeURIComponent(msg), '_blank');
+  document.getElementById('waitForm').classList.remove('show');
 }
 
 // Init

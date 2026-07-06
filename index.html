@@ -7,10 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sp: #fdf0f3; --sl: #f9d0db; --sm: #e8a0b0;
-  --sd: #c4607a; --sk: #8b2e45;
-  --ink: #1a1018; --is: #4a3840; --im: #8a7078;
-  --gb: #fff8e8; --go: #c9a96e; --gr: #2d6a4f;
+--sp: #fdf0f3; --sl: #f9d0db; --sm: #e8a0b0;
+--sd: #c4607a; --sk: #8b2e45;
+--ink: #1a1018; --is: #4a3840; --im: #8a7078;
+--gb: #fff8e8; --go: #c9a96e; --gr: #2d6a4f;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Noto Sans JP',sans-serif; background:var(--sp); color:var(--ink); min-height:100vh; }
@@ -41,9 +41,9 @@ body { font-family:'Noto Sans JP',sans-serif; background:var(--sp); color:var(--
 .req { color:var(--sd); font-size:10px; }
 .opt { color:var(--im); font-size:10px; }
 input[type=text], input[type=tel], input[type=email], input[type=date], input[type=number], select, textarea {
-  padding:11px 13px; border:1.5px solid #e8dde0; border-radius:8px;
-  font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--ink);
-  background:#fffcfd; outline:none; width:100%; transition:border-color .2s,box-shadow .2s;
+padding:11px 13px; border:1.5px solid #e8dde0; border-radius:8px;
+font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--ink);
+background:#fffcfd; outline:none; width:100%; transition:border-color .2s,box-shadow .2s;
 }
 input:focus, select:focus, textarea:focus { border-color:var(--sm); box-shadow:0 0 0 3px rgba(196,96,122,.08); }
 select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7078' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 13px center; padding-right:30px; }
@@ -79,11 +79,17 @@ textarea { resize:vertical; min-height:80px; }
 .sov-icon { font-size:60px; margin-bottom:20px; animation:fl 3s ease-in-out infinite; }
 .sov-title { font-family:'Shippori Mincho',serif; font-size:24px; font-weight:600; color:var(--sk); margin-bottom:12px; }
 .sov-msg { font-size:14px; color:var(--is); line-height:2; margin-bottom:24px; max-width:340px; }
-.line-btn { display:block; width:100%; max-width:280px; margin:0 auto 12px; padding:14px; background:#06C755; color:white; border:none; border-radius:10px; font-family:'Shippori Mincho',serif; font-size:16px; font-weight:600; cursor:pointer; text-align:center; text-decoration:none; letter-spacing:.08em; }
+.line-btn { display:block; width:100%; max-width:300px; margin:0 auto 14px; padding:17px 14px; background:#06C755; color:white; border:none; border-radius:12px; font-family:'Shippori Mincho',serif; font-size:17px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; letter-spacing:.06em; animation:pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(6,199,85,.5)} 50%{box-shadow:0 0 0 12px rgba(6,199,85,0)} }
+.sov-warn { display:inline-block; background:#fff3cd; color:#8a5a00; border:1.5px solid #f0c36d; border-radius:100px; padding:7px 18px; font-size:13px; font-weight:700; margin-bottom:14px; }
+.line-guide { font-size:14px; color:var(--sk); line-height:1.95; margin-bottom:8px; font-weight:500; max-width:360px; }
+.line-guide strong { color:#06813a; font-size:15px; }
+.line-arrow { color:#06C755; font-size:24px; line-height:1; margin-bottom:8px; animation:bounce 1.2s ease-in-out infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 .back-btn { padding:10px 28px; background:white; color:var(--is); border:1.5px solid #e8dde0; border-radius:8px; font-family:'Shippori Mincho',serif; font-size:14px; cursor:pointer; }
 
 @media (max-width:600px) {
-  .fr { grid-template-columns:1fr; }
+.fr { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -91,196 +97,203 @@ textarea { resize:vertical; min-height:80px; }
 
 <!-- SUCCESS -->
 <div class="sov" id="sov">
-  <div class="sov-icon">🌸</div>
-  <div class="sov-title">内容を確認してください</div>
-  <div class="sov-msg" id="sovMsg"></div>
-  <a class="line-btn" id="lineBtn" href="#" target="_blank">📲　LINEで送信して申し込みを完了する</a>
-  <button class="back-btn" onclick="document.getElementById('sov').classList.remove('show')">戻る</button>
+<div class="sov-icon">📲</div>
+<div class="sov-warn">⚠️ まだお申し込みは完了していません</div>
+<div class="sov-title">あと1ステップで完了です</div>
+<div class="sov-msg" id="sovMsg"></div>
+<div class="line-guide">下の緑のボタンを押して LINE で送信すると、<br><strong>お申し込みが完了します。</strong><br>ボタンを押さないと予約は受け付けられませんので、<br>必ず最後まで送信してください。</div>
+<div class="line-arrow">▼</div>
+<a class="line-btn" id="lineBtn" href="#" target="_blank">📲 LINEで送信して申し込みを完了する</a>
+<button class="back-btn" onclick="document.getElementById('sov').classList.remove('show')">入力に戻る</button>
 </div>
 
 <!-- ===== BOOKING ===== -->
 <div class="page active" id="page-booking">
-  <div class="hero">
-    <div class="sakura-float">📷</div>
-    <div class="hero-eye">Itoshima Photo Studio</div>
-    <h1 class="hero-title">撮影のお申し込み</h1>
-    <p class="hero-sub">糸島写真館へようこそ。<br>ご希望の内容をご記入のうえ、最後にLINEでお送りください。撮影日時は個別にご相談のうえ決定いたします。</p>
-    <div class="chips">
-      <div class="chip">🕙 10:00〜 / 13:00〜 / 15:30〜</div>
-      <div class="chip">📍 スタジオ・ロケ撮影</div>
-    </div>
-  </div>
+<div class="hero">
+<div class="sakura-float">📷</div>
+<div class="hero-eye">Itoshima Photo Studio</div>
+<h1 class="hero-title">撮影のお申し込み</h1>
+<p class="hero-sub">糸島写真館へようこそ。<br>ご希望の内容をご記入のうえ、<strong style="color:var(--sd);">最後に必ずLINEで送信してください</strong>。LINEの送信をもってお申し込み完了となります。撮影日時は個別にご相談のうえ決定いたします。</p>
+<div class="chips">
+<div class="chip">🕙 10:00〜 / 13:00〜 / 15:30〜</div>
+<div class="chip">📍 スタジオ・ロケ撮影</div>
+</div>
+</div>
 
-  <div class="fw">
-    <div class="form-card">
-      <div class="form-title">📝 撮影お申し込みフォーム</div>
+<div class="fw">
+<div class="form-card">
+<div class="form-title">📝 撮影お申し込みフォーム</div>
 
-      <!-- ① 代表者 -->
-      <div class="form-sec">① お申込者（代表者）さま</div>
-      <div class="fg-wrap">
-        <div class="fr">
-          <div class="fg"><div class="fl">代表者 お名前（姓）<span class="req">必須</span></div><input type="text" id="repLast" placeholder="糸島"></div>
-          <div class="fg"><div class="fl">代表者 お名前（名）<span class="req">必須</span></div><input type="text" id="repFirst" placeholder="花子"></div>
-        </div>
-        <div class="fr">
-          <div class="fg"><div class="fl">フリガナ（セイ）<span class="req">必須</span></div><input type="text" id="repLastKana" placeholder="イトシマ"></div>
-          <div class="fg"><div class="fl">フリガナ（メイ）<span class="req">必須</span></div><input type="text" id="repFirstKana" placeholder="ハナコ"></div>
-        </div>
-        <div class="fg"><div class="fl">電話番号<span class="req">必須</span></div><input type="tel" id="phone" placeholder="090-1234-5678"></div>
-        <div class="fg"><div class="fl">メールアドレス<span class="req">必須</span></div><input type="email" id="email" placeholder="hanako@example.com"></div>
-        <div class="fg"><div class="fl">ご住所<span class="req">必須</span></div><input type="text" id="address" placeholder="福岡県糸島市前原中央〇〇"></div>
-      </div>
+<!-- ① 代表者 -->
+<div class="form-sec">① お申込者（代表者）さま</div>
+<div class="fg-wrap">
+<div class="fr">
+<div class="fg"><div class="fl">代表者 お名前（姓）<span class="req">必須</span></div><input type="text" id="repLast" placeholder="糸島"></div>
+<div class="fg"><div class="fl">代表者 お名前（名）<span class="req">必須</span></div><input type="text" id="repFirst" placeholder="花子"></div>
+</div>
+<div class="fr">
+<div class="fg"><div class="fl">フリガナ（セイ）<span class="req">必須</span></div><input type="text" id="repLastKana" placeholder="イトシマ"></div>
+<div class="fg"><div class="fl">フリガナ（メイ）<span class="req">必須</span></div><input type="text" id="repFirstKana" placeholder="ハナコ"></div>
+</div>
+<div class="fg"><div class="fl">電話番号<span class="req">必須</span></div><input type="tel" id="phone" placeholder="090-1234-5678"></div>
+<div class="fg"><div class="fl">メールアドレス<span class="req">必須</span></div><input type="email" id="email" placeholder="hanako@example.com"></div>
+<div class="fg"><div class="fl">ご住所<span class="req">必須</span></div><input type="text" id="address" placeholder="福岡県糸島市前原中央〇〇"></div>
+</div>
 
-      <!-- ② 主役 -->
-      <div class="form-sec">② 撮影の主役さま</div>
-      <div class="fg-wrap">
-        <div class="fr">
-          <div class="fg"><div class="fl">主役 お名前（姓）<span class="req">必須</span></div><input type="text" id="starLast" placeholder="糸島"></div>
-          <div class="fg"><div class="fl">主役 お名前（名）<span class="req">必須</span></div><input type="text" id="starFirst" placeholder="太郎"></div>
-        </div>
-        <div class="fr">
-          <div class="fg"><div class="fl">フリガナ（セイ）<span class="req">必須</span></div><input type="text" id="starLastKana" placeholder="イトシマ"></div>
-          <div class="fg"><div class="fl">フリガナ（メイ）<span class="req">必須</span></div><input type="text" id="starFirstKana" placeholder="タロウ"></div>
-        </div>
-        <div class="fg">
-          <div class="fl">性別<span class="req">必須</span></div>
-          <select id="gender">
-            <option value="">お選びください</option>
-            <option>男の子</option>
-            <option>女の子</option>
-            <option>男性</option>
-            <option>女性</option>
-            <option>その他・回答しない</option>
-          </select>
-        </div>
-        <div class="fg">
-          <div class="fl">生年月日<span class="req">必須</span></div>
-          <input type="date" id="birth" onchange="updateAge()" oninput="updateAge()">
-        </div>
-        <div class="fg">
-          <div class="fl">ご年齢（自動計算）</div>
-          <div class="age-note empty" id="ageNote">生年月日を入れると、年齢・月齢が自動で表示されます。</div>
-        </div>
-      </div>
+<!-- ② 主役 -->
+<div class="form-sec">② 撮影の主役さま</div>
+<div class="fg-wrap">
+<div class="fr">
+<div class="fg"><div class="fl">主役 お名前（姓）<span class="req">必須</span></div><input type="text" id="starLast" placeholder="糸島"></div>
+<div class="fg"><div class="fl">主役 お名前（名）<span class="req">必須</span></div><input type="text" id="starFirst" placeholder="太郎"></div>
+</div>
+<div class="fr">
+<div class="fg"><div class="fl">フリガナ（セイ）<span class="req">必須</span></div><input type="text" id="starLastKana" placeholder="イトシマ"></div>
+<div class="fg"><div class="fl">フリガナ（メイ）<span class="req">必須</span></div><input type="text" id="starFirstKana" placeholder="タロウ"></div>
+</div>
+<div class="fg">
+<div class="fl">性別<span class="req">必須</span></div>
+<select id="gender">
+<option value="">お選びください</option>
+<option>男の子</option>
+<option>女の子</option>
+<option>男性</option>
+<option>女性</option>
+<option>その他・回答しない</option>
+</select>
+</div>
+<div class="fg">
+<div class="fl">生年月日<span class="req">必須</span></div>
+<input type="date" id="birth" onchange="updateAge()" oninput="updateAge()">
+</div>
+<div class="fg">
+<div class="fl">ご年齢（自動計算）</div>
+<div class="age-note empty" id="ageNote">生年月日を入れると、年齢・月齢が自動で表示されます。</div>
+</div>
+</div>
 
-      <!-- ③ 撮影内容 -->
-      <div class="form-sec">③ 撮影内容</div>
-      <div class="fg-wrap">
-        <div class="fg">
-          <div class="fl">撮影メニュー<span class="req">必須</span></div>
-          <select id="menu" onchange="onMenuChange()">
-            <option value="">お選びください</option>
-            <option>レギュラー撮影プラン（家族・お宮参り・記念撮影など）</option>
-            <option>プロフィール撮影プラン（証明写真・遺影・宣材など）</option>
-            <option>子ども着物プラン（七五三など）</option>
-            <option>ニューボーンフォトプラン</option>
-            <option>出張ウエディング・フォト・プラン</option>
-            <option>その他・相談したい</option>
-          </select>
-        </div>
+<!-- ③ 撮影内容 -->
+<div class="form-sec">③ 撮影内容</div>
+<div class="fg-wrap">
+<div class="fg">
+<div class="fl">撮影メニュー<span class="req">必須</span></div>
+<select id="menu" onchange="onMenuChange()">
+<option value="">お選びください</option>
+<option>レギュラー撮影プラン（家族・お宮参り・記念撮影など）</option>
+<option>プロフィール撮影プラン（証明写真・遺影・宣材など）</option>
+<option>子ども着物プラン（七五三など）</option>
+<option>ニューボーンフォトプラン</option>
+<option>出張ウエディング・フォト・プラン</option>
+<option>その他・相談したい</option>
+</select>
+</div>
 
-        <div class="fg">
-          <div class="fl">オプション</div>
-          <label class="co"><input type="checkbox" id="allData"><div class="co-text">全データプランを希望する（＋11,000円）<small>セレクト済みの納品カットに加え、撮影した全データをお渡しします</small></div></label>
-        </div>
+<div class="fg">
+<div class="fl">オプション</div>
+<label class="co"><input type="checkbox" id="allData"><div class="co-text">全データプランを希望する（＋11,000円）<small>セレクト済みの納品カットに加え、撮影した全データをお渡しします</small></div></label>
+</div>
 
-        <div class="cond" id="kimonoBox">
-          <div class="cond-lbl">👘 着物について<span class="req" style="margin-left:6px;">必須</span></div>
-          <div class="cg">
-            <label class="co"><input type="radio" name="kimono" value="レンタル"><div class="co-text">着物をレンタルする<small>糸島写真館のレンタル着物を利用（持ち込みと同料金）</small></div></label>
-            <label class="co"><input type="radio" name="kimono" value="持ち込み"><div class="co-text">着物を持ち込む<small>ご自身の着物で撮影（レンタルと同料金）</small></div></label>
-          </div>
-        </div>
+<div class="cond" id="kimonoBox">
+<div class="cond-lbl">👘 着物について<span class="req" style="margin-left:6px;">必須</span></div>
+<div class="cg">
+<label class="co"><input type="radio" name="kimono" value="レンタル"><div class="co-text">着物をレンタルする<small>糸島写真館のレンタル着物を利用（持ち込みと同料金）</small></div></label>
+<label class="co"><input type="radio" name="kimono" value="持ち込み"><div class="co-text">着物を持ち込む<small>ご自身の着物で撮影（レンタルと同料金）</small></div></label>
+</div>
+</div>
 
-        <div class="fg">
-          <div class="fl">撮影場所<span class="req">必須</span></div>
-          <select id="place">
-            <option value="">お選びください</option>
-            <option>スタジオ撮影</option>
-            <option>ロケーション撮影（屋外）</option>
-            <option>どちらでも相談したい</option>
-          </select>
-        </div>
-        <div class="fg">
-          <div class="fl">ご希望の撮影場所・ロケ地など<span class="opt">任意</span></div>
-          <input type="text" id="placeDetail" placeholder="例：産宮神社、糸島の海岸、自宅 など 自由にご記入ください">
-        </div>
-      </div>
+<div class="fg">
+<div class="fl">撮影場所<span class="req">必須</span></div>
+<select id="place">
+<option value="">お選びください</option>
+<option>スタジオ撮影</option>
+<option>ロケーション撮影（屋外）</option>
+<option>どちらでも相談したい</option>
+</select>
+</div>
+<div class="fg">
+<div class="fl">ご希望の撮影場所・ロケ地など<span class="opt">任意</span></div>
+<input type="text" id="placeDetail" placeholder="例：産宮神社、糸島の海岸、自宅 など 自由にご記入ください">
+</div>
+</div>
 
-      <!-- ④ 希望日時 -->
-      <div class="form-sec">④ ご希望の日時</div>
-      <div class="fg-wrap">
-        <div class="fr">
-          <div class="fg"><div class="fl">第一希望日<span class="req">必須</span></div><input type="date" id="date1"></div>
-          <div class="fg"><div class="fl">第一希望 時間帯<span class="req">必須</span></div>
-            <select id="time1">
-              <option value="">お選びください</option>
-              <option>10:00〜</option>
-              <option>13:00〜</option>
-              <option>15:30〜</option>
-            </select>
-          </div>
-        </div>
-        <div class="fr">
-          <div class="fg"><div class="fl">第二希望日<span class="req">必須</span></div><input type="date" id="date2"></div>
-          <div class="fg"><div class="fl">第二希望 時間帯<span class="req">必須</span></div>
-            <select id="time2">
-              <option value="">お選びください</option>
-              <option>10:00〜</option>
-              <option>13:00〜</option>
-              <option>15:30〜</option>
-            </select>
-          </div>
-        </div>
-      </div>
+<!-- ④ 希望日時 -->
+<div class="form-sec">④ ご希望の日時</div>
+<div class="fg-wrap">
+<div class="fr">
+<div class="fg"><div class="fl">第一希望日<span class="req">必須</span></div><input type="date" id="date1"></div>
+<div class="fg"><div class="fl">第一希望 時間帯<span class="req">必須</span></div>
+<select id="time1">
+<option value="">お選びください</option>
+<option>10:00〜</option>
+<option>13:00〜</option>
+<option>15:30〜</option>
+</select>
+</div>
+</div>
+<div class="fr">
+<div class="fg"><div class="fl">第二希望日<span class="req">必須</span></div><input type="date" id="date2"></div>
+<div class="fg"><div class="fl">第二希望 時間帯<span class="req">必須</span></div>
+<select id="time2">
+<option value="">お選びください</option>
+<option>10:00〜</option>
+<option>13:00〜</option>
+<option>15:30〜</option>
+</select>
+</div>
+</div>
+</div>
 
-      <!-- ⑤ その他 -->
-      <div class="form-sec">⑤ その他</div>
-      <div class="fg-wrap">
-        <div class="fg">
-          <div class="fl">撮影人数<span class="req">必須</span></div>
-          <div class="fr">
-            <div class="fg"><div class="fl" style="font-weight:400;color:var(--im);">大人（名）</div><input type="number" id="adults" min="0" max="50" inputmode="numeric" placeholder="2" oninput="updateTotal()"></div>
-            <div class="fg"><div class="fl" style="font-weight:400;color:var(--im);">お子様（名）</div><input type="number" id="kids" min="0" max="50" inputmode="numeric" placeholder="1" oninput="updateTotal()"></div>
-          </div>
-          <div class="age-note empty" id="totalNote">大人・お子様の人数を入れると、合計人数が表示されます。</div>
-        </div>
-        <div class="fg">
-          <div class="fl">SNS・HP・チラシ等での写真掲載について<span class="req">必須</span></div>
-          <div class="cg">
-            <label class="co"><input type="radio" name="consent" value="all" checked><div class="co-text">掲載可（SNS・HP・チラシ等）<small>Instagram・ホームページ・チラシ等への掲載にご協力をお願いいたします</small></div></label>
-            <label class="co"><input type="radio" name="consent" value="none"><div class="co-text">掲載は不可</div></label>
-          </div>
-        </div>
-        <div class="ri">
-          <div class="ri-lbl">👫 ご紹介者のお名前<span class="opt" style="margin-left:6px;">任意</span></div>
-          <input type="text" id="referrer" placeholder="例：山田 太郎 様にご紹介いただきました">
-        </div>
-        <div class="fg">
-          <div class="fl">ご相談・ご要望／撮影への意気込み<span class="opt">任意</span></div>
-          <textarea id="request" placeholder="ご相談・ご要望、そして撮影への意気込みなど、なんでも自由にお書きください。"></textarea>
-        </div>
-      </div>
+<!-- ⑤ その他 -->
+<div class="form-sec">⑤ その他</div>
+<div class="fg-wrap">
+<div class="fg">
+<div class="fl">撮影人数<span class="req">必須</span></div>
+<div class="fr">
+<div class="fg"><div class="fl" style="font-weight:400;color:var(--im);">大人（名）</div><input type="number" id="adults" min="0" max="50" inputmode="numeric" placeholder="2" oninput="updateTotal()"></div>
+<div class="fg"><div class="fl" style="font-weight:400;color:var(--im);">お子様（名）</div><input type="number" id="kids" min="0" max="50" inputmode="numeric" placeholder="1" oninput="updateTotal()"></div>
+</div>
+<div class="age-note empty" id="totalNote">大人・お子様の人数を入れると、合計人数が表示されます。</div>
+</div>
+<div class="fg">
+<div class="fl">SNS・HP・チラシ等での写真掲載について<span class="req">必須</span></div>
+<div class="cg">
+<label class="co"><input type="radio" name="consent" value="all" checked><div class="co-text">掲載可（SNS・HP・チラシ等）<small>Instagram・ホームページ・チラシ等への掲載にご協力をお願いいたします</small></div></label>
+<label class="co"><input type="radio" name="consent" value="none"><div class="co-text">掲載は不可</div></label>
+</div>
+</div>
+<div class="ri">
+<div class="ri-lbl">👫 ご紹介者のお名前<span class="opt" style="margin-left:6px;">任意</span></div>
+<input type="text" id="referrer" placeholder="例：山田 太郎 様にご紹介いただきました">
+</div>
+<div class="fg">
+<div class="fl">ご相談・ご要望／撮影への意気込み<span class="opt">任意</span></div>
+<textarea id="request" placeholder="ご相談・ご要望、そして撮影への意気込みなど、なんでも自由にお書きください。"></textarea>
+</div>
+</div>
 
-      <button class="sub-btn" onclick="doSubmit()">📷　入力内容を確認する　📷</button>
-      <p class="priv">ご入力いただいた情報は予約管理・ご連絡の目的のみに使用します。第三者への提供は一切行いません。</p>
-    </div>
-  </div>
+<button class="sub-btn" onclick="doSubmit()">📷 入力内容を確認する 📷</button>
+<p class="priv" style="color:#8a5a00;font-weight:600;">※ このボタンの後、確認画面の【LINEで送信】ボタンを押すとお申し込みが完了します。</p>
+<p class="priv">ご入力いただいた情報は予約管理・ご連絡の目的のみに使用します。第三者への提供は一切行いません。</p>
+</div>
+</div>
 </div>
 
 <script>
-// ===== GASスプレッドシート自動リスト（押し忘れ対策の保険） =====
-// ↓デプロイで発行された自分のウェブアプリURL（.../exec）に書き換える
+// ===== GASスプレッドシート記録（LINEボタンを押した時に送信する方式） =====
+// ↓デプロイで発行された自分のウェブアプリURL（.../exec）
 var GAS_URL = 'https://script.google.com/macros/s/AKfycbyl3fmLxCykiJQs48Erqu7q54bF17CI6cKaKPYarfxvAY5VJlIM2gTYxHw0bnZYT6j-/exec';
 
+// LINEボタンを押すまで、記録内容をここに一時保持しておく
+var pendingPayload = null;
+
 function sendToSheet(payload) {
-  try {
-    return fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(payload)
-    }).catch(function(err){ console.log('sheet send error:', err); });
-  } catch(e) { console.log('sheet send error:', e); }
+try {
+return fetch(GAS_URL, {
+method: 'POST',
+mode: 'no-cors',
+body: JSON.stringify(payload)
+}).catch(function(err){ console.log('sheet send error:', err); });
+} catch(e) { console.log('sheet send error:', e); }
 }
 
 // ===== 値の取り出し =====
@@ -288,181 +301,186 @@ function getVal(id) { var el=document.getElementById(id); return el?(el.value||'
 
 // ===== 生年月日 → 年齢・月齢 =====
 function calcAge(bdStr) {
-  if (!bdStr) return null;
-  var b = new Date(bdStr + 'T00:00:00');
-  if (isNaN(b.getTime())) return null;
-  var n = new Date();
-  if (b > n) return { invalid:true };
-  var months = (n.getFullYear()-b.getFullYear())*12 + (n.getMonth()-b.getMonth());
-  if (n.getDate() < b.getDate()) months--;
-  if (months < 0) months = 0;
-  var years = Math.floor(months/12);
-  var rem = months % 12;
-  return { years:years, remMonths:rem, totalMonths:months };
+if (!bdStr) return null;
+var b = new Date(bdStr + 'T00:00:00');
+if (isNaN(b.getTime())) return null;
+var n = new Date();
+if (b > n) return { invalid:true };
+var months = (n.getFullYear()-b.getFullYear())*12 + (n.getMonth()-b.getMonth());
+if (n.getDate() < b.getDate()) months--;
+if (months < 0) months = 0;
+var years = Math.floor(months/12);
+var rem = months % 12;
+return { years:years, remMonths:rem, totalMonths:months };
 }
 
 function updateAge() {
-  var note = document.getElementById('ageNote');
-  var a = calcAge(getVal('birth'));
-  if (!a) { note.className='age-note empty'; note.textContent='生年月日を入れると、年齢・月齢が自動で表示されます。'; return; }
-  if (a.invalid) { note.className='age-note empty'; note.textContent='未来の日付が入力されています。ご確認ください。'; return; }
-  note.className = 'age-note';
-  note.textContent = '満 ' + a.years + '歳' + a.remMonths + 'ヶ月（月齢 ' + a.totalMonths + 'ヶ月）';
+var note = document.getElementById('ageNote');
+var a = calcAge(getVal('birth'));
+if (!a) { note.className='age-note empty'; note.textContent='生年月日を入れると、年齢・月齢が自動で表示されます。'; return; }
+if (a.invalid) { note.className='age-note empty'; note.textContent='未来の日付が入力されています。ご確認ください。'; return; }
+note.className = 'age-note';
+note.textContent = '満 ' + a.years + '歳' + a.remMonths + 'ヶ月（月齢 ' + a.totalMonths + 'ヶ月）';
 }
 
 function ageLabel() {
-  var a = calcAge(getVal('birth'));
-  if (!a || a.invalid) return '';
-  return '満' + a.years + '歳' + a.remMonths + 'ヶ月';
+var a = calcAge(getVal('birth'));
+if (!a || a.invalid) return '';
+return '満' + a.years + '歳' + a.remMonths + 'ヶ月';
 }
 function monthsLabel() {
-  var a = calcAge(getVal('birth'));
-  if (!a || a.invalid) return '';
-  return a.totalMonths + 'ヶ月';
+var a = calcAge(getVal('birth'));
+if (!a || a.invalid) return '';
+return a.totalMonths + 'ヶ月';
 }
 
 // ===== 条件分岐 =====
 function onMenuChange() {
-  var box = document.getElementById('kimonoBox');
-  if (getVal('menu').indexOf('子ども着物プラン') === 0) box.classList.add('show');
-  else { box.classList.remove('show'); var r=document.querySelector('input[name="kimono"]:checked'); if(r) r.checked=false; }
+var box = document.getElementById('kimonoBox');
+if (getVal('menu').indexOf('子ども着物プラン') === 0) box.classList.add('show');
+else { box.classList.remove('show'); var r=document.querySelector('input[name="kimono"]:checked'); if(r) r.checked=false; }
 }
 // ===== 撮影人数 → 合計の自動表示 =====
 function num(id){ var v=parseInt(getVal(id),10); return (isNaN(v)||v<0)?0:v; }
 function updateTotal() {
-  var note=document.getElementById('totalNote');
-  var a=num('adults'), k=num('kids'), t=a+k;
-  if (getVal('adults')==='' && getVal('kids')==='') {
-    note.className='age-note empty'; note.textContent='大人・お子様の人数を入れると、合計人数が表示されます。'; return;
-  }
-  note.className='age-note';
-  note.textContent='合計 '+t+'名（大人 '+a+'名・お子様 '+k+'名）';
+var note=document.getElementById('totalNote');
+var a=num('adults'), k=num('kids'), t=a+k;
+if (getVal('adults')==='' && getVal('kids')==='') {
+note.className='age-note empty'; note.textContent='大人・お子様の人数を入れると、合計人数が表示されます。'; return;
+}
+note.className='age-note';
+note.textContent='合計 '+t+'名（大人 '+a+'名・お子様 '+k+'名）';
 }
 
 // ===== SUBMIT =====
 function doSubmit() {
-  var repLast=getVal('repLast'), repFirst=getVal('repFirst');
-  var repLk=getVal('repLastKana'), repFk=getVal('repFirstKana');
-  var phone=getVal('phone'), email=getVal('email'), address=getVal('address');
-  var starLast=getVal('starLast'), starFirst=getVal('starFirst');
-  var starLk=getVal('starLastKana'), starFk=getVal('starFirstKana');
-  var gender=getVal('gender'), birth=getVal('birth');
-  var menu=getVal('menu'), place=getVal('place'), placeDetail=getVal('placeDetail');
-  var date1=getVal('date1'), time1=getVal('time1');
-  var date2=getVal('date2'), time2=getVal('time2');
-  var adults=num('adults'), kids=num('kids'), total=adults+kids;
+var repLast=getVal('repLast'), repFirst=getVal('repFirst');
+var repLk=getVal('repLastKana'), repFk=getVal('repFirstKana');
+var phone=getVal('phone'), email=getVal('email'), address=getVal('address');
+var starLast=getVal('starLast'), starFirst=getVal('starFirst');
+var starLk=getVal('starLastKana'), starFk=getVal('starFirstKana');
+var gender=getVal('gender'), birth=getVal('birth');
+var menu=getVal('menu'), place=getVal('place'), placeDetail=getVal('placeDetail');
+var date1=getVal('date1'), time1=getVal('time1');
+var date2=getVal('date2'), time2=getVal('time2');
+var adults=num('adults'), kids=num('kids'), total=adults+kids;
 
-  if (!repLast||!repFirst) { alert('代表者のお名前をご入力ください。'); return; }
-  if (!repLk||!repFk)      { alert('代表者のフリガナをご入力ください。'); return; }
-  if (!phone)              { alert('電話番号をご入力ください。'); return; }
-  if (!email)              { alert('メールアドレスをご入力ください。'); return; }
-  if (!address)            { alert('ご住所をご入力ください。'); return; }
-  if (!starLast||!starFirst){ alert('撮影主役のお名前をご入力ください。'); return; }
-  if (!starLk||!starFk)    { alert('撮影主役のフリガナをご入力ください。'); return; }
-  if (!gender)             { alert('性別をお選びください。'); return; }
-  if (!birth)              { alert('生年月日をご入力ください。'); return; }
-  if (!menu)               { alert('撮影メニューをお選びください。'); return; }
+if (!repLast||!repFirst) { alert('代表者のお名前をご入力ください。'); return; }
+if (!repLk||!repFk) { alert('代表者のフリガナをご入力ください。'); return; }
+if (!phone) { alert('電話番号をご入力ください。'); return; }
+if (!email) { alert('メールアドレスをご入力ください。'); return; }
+if (!address) { alert('ご住所をご入力ください。'); return; }
+if (!starLast||!starFirst){ alert('撮影主役のお名前をご入力ください。'); return; }
+if (!starLk||!starFk) { alert('撮影主役のフリガナをご入力ください。'); return; }
+if (!gender) { alert('性別をお選びください。'); return; }
+if (!birth) { alert('生年月日をご入力ください。'); return; }
+if (!menu) { alert('撮影メニューをお選びください。'); return; }
 
-  var kimono='';
-  if (menu.indexOf('子ども着物プラン')===0) {
-    var ke=document.querySelector('input[name="kimono"]:checked');
-    if (!ke) { alert('着物（レンタル／持ち込み）をお選びください。'); return; }
-    kimono = ke.value;
-  }
-  if (!place)              { alert('撮影場所をお選びください。'); return; }
-  if (!date1||!time1)      { alert('第一希望の日付と時間帯をご入力ください。'); return; }
-  if (!date2||!time2)      { alert('第二希望の日付と時間帯をご入力ください。'); return; }
-  if (total < 1)           { alert('撮影人数（大人・お子様）をご入力ください。'); return; }
+var kimono='';
+if (menu.indexOf('子ども着物プラン')===0) {
+var ke=document.querySelector('input[name="kimono"]:checked');
+if (!ke) { alert('着物（レンタル／持ち込み）をお選びください。'); return; }
+kimono = ke.value;
+}
+if (!place) { alert('撮影場所をお選びください。'); return; }
+if (!date1||!time1) { alert('第一希望の日付と時間帯をご入力ください。'); return; }
+if (!date2||!time2) { alert('第二希望の日付と時間帯をご入力ください。'); return; }
+if (total < 1) { alert('撮影人数（大人・お子様）をご入力ください。'); return; }
 
-  var ce=document.querySelector('input[name="consent"]:checked');
-  var consentV = ce?ce.value:'none';
-  var consentL = consentV==='all' ? '掲載可（SNS・HP・チラシ等）' : '掲載不可';
-  var referrer=getVal('referrer'), request=getVal('request');
-  var allDataEl=document.getElementById('allData');
-  var allData = (allDataEl && allDataEl.checked) ? '希望する' : '希望しない';
-  var ageL=ageLabel(), monL=monthsLabel();
-  var repName=repLast+' '+repFirst, repKana=repLk+' '+repFk;
-  var starName=starLast+' '+starFirst, starKana=starLk+' '+starFk;
+var ce=document.querySelector('input[name="consent"]:checked');
+var consentV = ce?ce.value:'none';
+var consentL = consentV==='all' ? '掲載可（SNS・HP・チラシ等）' : '掲載不可';
+var referrer=getVal('referrer'), request=getVal('request');
+var allDataEl=document.getElementById('allData');
+var allData = (allDataEl && allDataEl.checked) ? '希望する' : '希望しない';
+var ageL=ageLabel(), monL=monthsLabel();
+var repName=repLast+' '+repFirst, repKana=repLk+' '+repFk;
+var starName=starLast+' '+starFirst, starKana=starLk+' '+starFk;
 
-  // ★スプレッドシート自動リスト（LINE送信前に即発火＝押し忘れの保険）
-  sendToSheet({
-    '受付種別':       '撮影申込',
-    '代表者氏名':     repName,
-    '代表者フリガナ': repKana,
-    '電話番号':       phone,
-    'メールアドレス': email,
-    'ご住所':         address,
-    '撮影主役氏名':   starName,
-    '撮影主役フリガナ': starKana,
-    '性別':           gender,
-    '生年月日':       birth,
-    '年齢（満）':     ageL,
-    '月齢':           monL,
-    '撮影メニュー':   menu,
-    '着物（レンタル／持ち込み）': kimono,
-    '全データプラン（＋11,000円）': allData,
-    '撮影場所':       place,
-    'ご希望の撮影場所': placeDetail,
-    '第一希望日':     date1,
-    '第一希望時間帯': time1,
-    '第二希望日':     date2,
-    '第二希望時間帯': time2,
-    '撮影人数（大人）':   String(adults),
-    '撮影人数（お子様）': String(kids),
-    '撮影人数（合計）':   String(total),
-    '写真掲載可否':   consentL,
-    'ご紹介者':       referrer,
-    'ご相談・ご要望・意気込み': request
-  });
+// ★スプレッドシート記録用データを一時保持（実際の送信はLINEボタンを押した時）
+pendingPayload = {
+'受付種別': '撮影申込',
+'代表者氏名': repName,
+'代表者フリガナ': repKana,
+'電話番号': phone,
+'メールアドレス': email,
+'ご住所': address,
+'撮影主役氏名': starName,
+'撮影主役フリガナ': starKana,
+'性別': gender,
+'生年月日': birth,
+'年齢（満）': ageL,
+'月齢': monL,
+'撮影メニュー': menu,
+'着物（レンタル／持ち込み）': kimono,
+'全データプラン（＋11,000円）': allData,
+'撮影場所': place,
+'ご希望の撮影場所': placeDetail,
+'第一希望日': date1,
+'第一希望時間帯': time1,
+'第二希望日': date2,
+'第二希望時間帯': time2,
+'撮影人数（大人）': String(adults),
+'撮影人数（お子様）': String(kids),
+'撮影人数（合計）': String(total),
+'写真掲載可否': consentL,
+'ご紹介者': referrer,
+'ご相談・ご要望・意気込み': request
+};
 
-  // LINEメッセージ
-  var msg = '【糸島写真館 撮影お申し込み】\n'
-    +'------------\n'
-    +'代表者：'+repName+'（'+repKana+'）\n'
-    +'電話番号：'+phone+'\n'
-    +'メール：'+email+'\n'
-    +'住所：'+address+'\n'
-    +'------------\n'
-    +'撮影主役：'+starName+'（'+starKana+'）\n'
-    +'性別：'+gender+'\n'
-    +'生年月日：'+birth+(ageL?'（'+ageL+' / 月齢'+monL+'）':'')+'\n'
-    +'------------\n'
-    +'メニュー：'+menu+'\n'
-    +(kimono?'着物：'+kimono+'\n':'')
-    +'全データプラン：'+allData+'\n'
-    +'撮影場所：'+place+(placeDetail?'（'+placeDetail+'）':'')+'\n'
-    +'第一希望：'+date1+' '+time1+'\n'
-    +'第二希望：'+date2+' '+time2+'\n'
-    +'撮影人数：合計'+total+'名（大人'+adults+'・お子様'+kids+'）\n'
-    +'写真掲載：'+consentL+'\n'
-    +(referrer?'紹介者：'+referrer+'\n':'')
-    +(request?'ご相談・意気込み：'+request+'\n':'')
-    +'------------';
+// LINEメッセージ
+var msg = '【糸島写真館 撮影お申し込み】\n'
++'------------\n'
++'代表者：'+repName+'（'+repKana+'）\n'
++'電話番号：'+phone+'\n'
++'メール：'+email+'\n'
++'住所：'+address+'\n'
++'------------\n'
++'撮影主役：'+starName+'（'+starKana+'）\n'
++'性別：'+gender+'\n'
++'生年月日：'+birth+(ageL?'（'+ageL+' / 月齢'+monL+'）':'')+'\n'
++'------------\n'
++'メニュー：'+menu+'\n'
++(kimono?'着物：'+kimono+'\n':'')
++'全データプラン：'+allData+'\n'
++'撮影場所：'+place+(placeDetail?'（'+placeDetail+'）':'')+'\n'
++'第一希望：'+date1+' '+time1+'\n'
++'第二希望：'+date2+' '+time2+'\n'
++'撮影人数：合計'+total+'名（大人'+adults+'・お子様'+kids+'）\n'
++'写真掲載：'+consentL+'\n'
++(referrer?'紹介者：'+referrer+'\n':'')
++(request?'ご相談・意気込み：'+request+'\n':'')
++'------------';
 
-  document.getElementById('lineBtn').href = 'https://line.me/R/oaMessage/@itoshima.camera/?'+encodeURIComponent(msg);
-  document.getElementById('sovMsg').innerHTML =
-    '<strong>'+repName+' 様</strong><br><br>'
-    +'主役：'+starName+'<br>'
-    +menu+'<br>'
-    +'第一希望：'+date1+' '+time1+'<br>'
-    +'のお申し込み内容をご確認ください。<br><br>'
-    +'下の緑色のボタンを押してLINEで送信すると、<strong>お申し込みが完了</strong>します。'
-    +(referrer?'<br><br>🎁 紹介特典（データ+5カット）を適用いたします。':'');
-  document.getElementById('sov').classList.add('show');
-  resetForm();
+var lineBtn = document.getElementById('lineBtn');
+lineBtn.href = 'https://line.me/R/oaMessage/@itoshima.camera/?'+encodeURIComponent(msg);
+// ★LINEボタンを押した時に、はじめてスプレッドシート記録＋メール通知を送る
+lineBtn.onclick = function() {
+if (pendingPayload) { sendToSheet(pendingPayload); pendingPayload = null; }
+};
+
+document.getElementById('sovMsg').innerHTML =
+'<strong>'+repName+' 様</strong><br><br>'
++'主役：'+starName+'<br>'
++menu+'<br>'
++'第一希望：'+date1+' '+time1+'<br>'
++'上記の内容でお申し込みを受け付けます。'
++(referrer?'<br><br>🎁 紹介特典（データ+5カット）を適用いたします。':'');
+document.getElementById('sov').classList.add('show');
+resetForm();
 }
 
 function resetForm() {
-  ['repLast','repFirst','repLastKana','repFirstKana','phone','email','address',
-   'starLast','starFirst','starLastKana','starFirstKana','birth',
-   'placeDetail','date1','date2','adults','kids','referrer','request'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
-  ['gender','menu','place','time1','time2'].forEach(function(id){ var el=document.getElementById(id); if(el) el.selectedIndex=0; });
-  var r=document.querySelector('input[name="consent"][value="all"]'); if(r) r.checked=true;
-  var k=document.querySelector('input[name="kimono"]:checked'); if(k) k.checked=false;
-  var ad=document.getElementById('allData'); if(ad) ad.checked=false;
-  document.getElementById('kimonoBox').classList.remove('show');
-  updateAge();
-  updateTotal();
+['repLast','repFirst','repLastKana','repFirstKana','phone','email','address',
+'starLast','starFirst','starLastKana','starFirstKana','birth',
+'placeDetail','date1','date2','adults','kids','referrer','request'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+['gender','menu','place','time1','time2'].forEach(function(id){ var el=document.getElementById(id); if(el) el.selectedIndex=0; });
+var r=document.querySelector('input[name="consent"][value="all"]'); if(r) r.checked=true;
+var k=document.querySelector('input[name="kimono"]:checked'); if(k) k.checked=false;
+var ad=document.getElementById('allData'); if(ad) ad.checked=false;
+document.getElementById('kimonoBox').classList.remove('show');
+updateAge();
+updateTotal();
 }
 
 // Init

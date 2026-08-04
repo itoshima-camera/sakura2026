@@ -128,8 +128,8 @@ textarea { resize:vertical; min-height:80px; }
 <div class="sakura-float">🌻</div>
 <div class="hero-eye">Summer Special 2026</div>
 <h1 class="hero-title">夏休み<span>特別撮影会</span></h1>
-<div class="half-badge">✨ 通常の半額以下 ✨</div>
-<p class="hero-sub">お盆の3日間限定。<strong style="color:var(--sd);">グレーバック背景</strong>で人物の表情が際立つ記念撮影会です。1組30分・3カットデータ付き。おひとりでも、ご家族みんなでも、ペットとご一緒でも大歓迎です。</p>
+<div class="half-badge">✨ 通常33,000円 → 特別11,000円 ✨</div>
+<p class="hero-sub">お盆の3日間限定。<strong style="color:var(--sd);">グレーバック背景</strong>で人物の表情が際立つ記念撮影会です。1組30分・5カットデータ付き。おひとりでも、ご家族みんなでも、ペットとご一緒でも大歓迎です。</p>
 <div class="chips">
 <div class="chip">📅 8/13・14・15</div>
 <div class="chip">🕙 10:00〜15:00（1組30分）</div>
@@ -192,14 +192,23 @@ textarea { resize:vertical; min-height:80px; }
 </div>
 
 <!-- ③ プラン -->
-<div class="form-sec">③ ご希望のプラン</div>
+<div class="form-sec">③ プラン・オプション</div>
 <div class="fg-wrap">
 <div class="fg">
-<div class="fl">プラン<span class="req">必須</span></div>
-<div class="plans">
-<label class="plan"><input type="radio" name="plan" value="3カットデータ付き（11,000円）"><div class="plan-body"><div class="plan-name">3カット データ付き</div><div class="plan-price">11,000円<small>税込</small></div><div class="plan-desc">グレーバック背景で撮影。厳選3カットをデータでお渡しします。</div></div></label>
-<label class="plan"><input type="radio" name="plan" value="3カット以上ご希望（16,500円）"><div class="plan-body"><div class="plan-name">3カット以上 ご希望</div><div class="plan-price">16,500円<small>税込</small></div><div class="plan-desc">たっぷり撮影したい方に。3カットを超えるデータをお渡しします。</div></div></label>
+<div class="fl">プラン</div>
+<div class="plan" style="cursor:default; border-color:var(--sd); background:rgba(31,138,156,.06);">
+<div style="font-size:26px; line-height:1; flex-shrink:0;">📸</div>
+<div class="plan-body">
+<div class="plan-name">5カット データ付き</div>
+<div class="plan-price">11,000円<small>税込</small> <span style="font-size:12px;color:var(--im);text-decoration:line-through;margin-left:4px;">通常33,000円</span></div>
+<div class="plan-desc">グレーバック背景で撮影。厳選5カットをデータでお渡しします。おひとりでも複数人でも同料金です。</div>
 </div>
+</div>
+</div>
+<div class="fg">
+<div class="fl">オプション<span class="opt">任意</span></div>
+<label class="co"><input type="checkbox" id="allData" onchange="updateTotalPrice()"><div class="co-text">全データプランを希望する（＋5,500円）<small>厳選5カットに加えて、撮影した全カットのデータをお渡しします</small></div></label>
+<div class="age-note" id="priceNote" style="margin-top:6px;">お支払い合計：11,000円（5カット・データ付き）</div>
 </div>
 <div class="fg">
 <div class="fl">撮影人数<span class="req">必須</span></div>
@@ -372,6 +381,15 @@ note.className='age-note';
 note.textContent='合計 '+t+'名（大人 '+a+'名・お子様 '+k+'名）';
 }
 
+// ===== 料金合計の表示 =====
+function updateTotalPrice() {
+var ad=document.getElementById('allData');
+var on = ad && ad.checked;
+var price = 11000 + (on?5500:0);
+var note=document.getElementById('priceNote');
+if(note) note.textContent = 'お支払い合計：'+price.toLocaleString()+'円（5カット・データ付き'+(on?' ＋全データ':'')+'）';
+}
+
 // ===== SUBMIT =====
 function doSubmit() {
 var repLast=getVal('repLast'), repFirst=getVal('repFirst');
@@ -391,9 +409,10 @@ if (!email) { alert('メールアドレスをご入力ください。'); return;
 if (!address) { alert('ご住所をご入力ください。'); return; }
 if (!starLast||!starFirst){ alert('撮影主役のお名前をご入力ください。'); return; }
 
-var pe=document.querySelector('input[name="plan"]:checked');
-if (!pe) { alert('ご希望のプランをお選びください。'); return; }
-var plan = pe.value;
+var allDataEl=document.getElementById('allData');
+var allData = (allDataEl && allDataEl.checked);
+var allDataLabel = allData ? '希望する（＋5,500円）' : '希望しない';
+var totalPrice = 11000 + (allData ? 5500 : 0);
 
 if (total < 1) { alert('撮影人数（大人・お子様）をご入力ください。'); return; }
 
@@ -415,8 +434,10 @@ var repName=repLast+' '+repFirst, repKana=repLk+' '+repFk;
 var starName=starLast+' '+starFirst;
 var starKana=(starLk||starFk)?(starLk+' '+starFk).trim():'';
 
+// スプレッドシートの「ご相談」欄にペット情報も残す
 var requestForSheet = (petV==='あり' ? ('【ペット同伴】'+petLabel+(request?' / ':'')) : '') + request;
 
+// ★記録用データを一時保持（送信はLINEボタンを押した時）
 pendingPayload = {
 '受付種別': '夏休み特別撮影会',
 '代表者氏名': repName,
@@ -430,9 +451,9 @@ pendingPayload = {
 '生年月日': birth,
 '年齢（満）': ageL,
 '月齢': monL,
-'撮影メニュー': '夏休み特別撮影会（グレーバック）／ ' + plan,
+'撮影メニュー': '夏休み特別撮影会（グレーバック）／ 5カットデータ付き'+(allData?' ＋全データ':'')+' ／ ご請求合計'+totalPrice.toLocaleString()+'円',
 '着物（レンタル／持ち込み）': '',
-'全データプラン（＋11,000円）': '',
+'全データプラン（＋11,000円）': allDataLabel,
 '撮影場所': 'スタジオ（グレーバック背景）',
 'ご希望の撮影場所': (petV==='あり' ? ('ペット同伴：'+petLabel) : ''),
 '第一希望日': date1,
@@ -447,6 +468,7 @@ pendingPayload = {
 'ご相談・ご要望・意気込み': requestForSheet
 };
 
+// LINEメッセージ
 var msg = '【糸島写真館 夏休み特別撮影会 お申し込み】\n'
 +'------------\n'
 +'代表者：'+repName+'（'+repKana+'）\n'
@@ -458,7 +480,9 @@ var msg = '【糸島写真館 夏休み特別撮影会 お申し込み】\n'
 +(gender?'性別：'+gender+'\n':'')
 +(birth?'生年月日：'+birth+(ageL?'（'+ageL+' / 月齢'+monL+'）':'')+'\n':'')
 +'------------\n'
-+'プラン：'+plan+'\n'
++'プラン：5カットデータ付き（11,000円）\n'
++'全データ：'+allDataLabel+'\n'
++'ご請求合計：'+totalPrice.toLocaleString()+'円\n'
 +'撮影人数：合計'+total+'名（大人'+adults+'・お子様'+kids+'）\n'
 +'ペット：'+petLabel+'\n'
 +'第一希望：'+date1+' '+time1+'\n'
@@ -475,10 +499,10 @@ lineBtn.onclick = function() { if (pendingPayload) { sendToSheet(pendingPayload)
 document.getElementById('sovMsg').innerHTML =
 '<strong>'+repName+' 様</strong><br><br>'
 +'夏休み特別撮影会<br>'
-+plan+'<br>'
++'5カットデータ付き（11,000円）'+(allData?'<br>＋全データ（＋5,500円）':'')+'<br>'
++'ご請求合計：'+totalPrice.toLocaleString()+'円<br>'
 +'第一希望：'+date1+' '+time1+'<br>'
-+'上記の内容でお申し込みを受け付けます。'
-+(referrer?'<br><br>🎁 紹介特典（データ+5カット）を適用いたします。':'');
++'上記の内容でお申し込みを受け付けます。';
 document.getElementById('sov').classList.add('show');
 resetForm();
 }
@@ -489,16 +513,18 @@ function resetForm() {
 'petDetail','adults','kids','referrer','request'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
 ['gender','date1','time1','date2','time2'].forEach(function(id){ var el=document.getElementById(id); if(el) el.selectedIndex=0; });
 var r=document.querySelector('input[name="consent"][value="all"]'); if(r) r.checked=true;
-var pl=document.querySelector('input[name="plan"]:checked'); if(pl) pl.checked=false;
+var ad=document.getElementById('allData'); if(ad) ad.checked=false;
 var pt=document.querySelector('input[name="pet"]:checked'); if(pt) pt.checked=false;
 document.getElementById('petBox').classList.remove('show');
 updateAge();
 updateTotal();
+updateTotalPrice();
 }
 
 // Init
 updateAge();
 updateTotal();
+updateTotalPrice();
 </script>
 </body>
 </html>

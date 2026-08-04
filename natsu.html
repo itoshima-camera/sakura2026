@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>糸島写真館｜夏休み特別撮影会 お申し込み</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+--sp: #eef6f8; --sl: #cfe8ee; --sm: #7fc3d0;
+--sd: #1f8a9c; --sk: #12616e;
+--ink: #12242b; --is: #3a5058; --im: #6f858c;
+--sun: #ef9d1a; --sund: #b96f00;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--sp); color:var(--ink); min-height:100vh; }
+.page { display:none; padding-top:20px; min-height:100vh; }
+.page.active { display:block; }
+
+/* HERO */
+.hero { padding:44px 20px 26px; text-align:center; }
+.sakura-float { font-size:26px; margin-bottom:10px; animation:fl 4s ease-in-out infinite; }
+@keyframes fl { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+.hero-eye { font-family:'Cormorant Garamond',serif; font-size:12px; letter-spacing:.3em; color:var(--sd); text-transform:uppercase; margin-bottom:10px; }
+.hero-title { font-family:'Shippori Mincho',serif; font-size:clamp(25px,6.5vw,40px); font-weight:600; line-height:1.4; margin-bottom:12px; }
+.hero-title span { color:var(--sd); }
+.half-badge { display:inline-block; background:var(--sun); color:#3a2400; font-weight:700; font-size:13px; padding:5px 16px; border-radius:100px; margin-bottom:14px; letter-spacing:.04em; }
+.hero-sub { font-size:13px; color:var(--im); line-height:1.95; max-width:420px; margin:0 auto 20px; }
+.chips { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; }
+.chip { background:white; border:1px solid var(--sl); padding:5px 14px; border-radius:100px; font-size:12px; color:var(--is); display:flex; align-items:center; gap:5px; }
+
+/* FORM */
+.fw { max-width:640px; margin:0 auto; padding:0 16px 60px; }
+.form-card { background:white; border-radius:16px; padding:26px 22px; box-shadow:0 4px 24px rgba(18,97,110,.10); border:1px solid rgba(127,195,208,.35); margin-bottom:18px; }
+.form-title { font-family:'Shippori Mincho',serif; font-size:17px; font-weight:600; margin-bottom:6px; }
+.form-sec { font-family:'Shippori Mincho',serif; font-size:13px; font-weight:600; color:var(--sd); letter-spacing:.06em; margin:22px 0 2px; padding-bottom:8px; border-bottom:1px solid var(--sl); }
+.form-sec:first-of-type { margin-top:8px; }
+.fg-wrap { display:grid; gap:16px; margin-top:14px; }
+.fr { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.fg { display:flex; flex-direction:column; gap:6px; }
+.fl { font-size:12px; font-weight:500; color:var(--is); display:flex; align-items:center; gap:4px; }
+.req { color:var(--sd); font-size:10px; }
+.opt { color:var(--im); font-size:10px; }
+input[type=text], input[type=tel], input[type=email], input[type=date], input[type=number], select, textarea {
+padding:11px 13px; border:1.5px solid #dbe7ea; border-radius:8px;
+font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--ink);
+background:#fbfdfe; outline:none; width:100%; transition:border-color .2s,box-shadow .2s;
+}
+input:focus, select:focus, textarea:focus { border-color:var(--sm); box-shadow:0 0 0 3px rgba(31,138,156,.10); }
+select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236f858c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 13px center; padding-right:30px; }
+textarea { resize:vertical; min-height:80px; }
+.age-note { font-size:12px; color:var(--sk); background:#e9f6f8; border:1px solid rgba(31,138,156,.2); border-radius:8px; padding:9px 12px; min-height:38px; display:flex; align-items:center; }
+.age-note.empty { color:var(--im); background:#f4f8f9; border-color:#eee; }
+
+/* PLAN CARDS */
+.plans { display:grid; gap:10px; }
+.plan { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; border:1.5px solid #dbe7ea; border-radius:10px; cursor:pointer; transition:border-color .2s,background .2s; }
+.plan:has(input:checked) { border-color:var(--sd); background:rgba(31,138,156,.06); }
+.plan input { width:16px; height:16px; flex-shrink:0; margin-top:3px; accent-color:var(--sd); }
+.plan-body { flex:1; }
+.plan-name { font-size:14px; font-weight:600; color:var(--ink); }
+.plan-price { font-size:20px; font-weight:700; color:var(--sd); margin:2px 0; }
+.plan-price small { font-size:12px; font-weight:500; color:var(--im); margin-left:4px; }
+.plan-desc { font-size:11.5px; color:var(--im); line-height:1.6; }
+
+/* CONSENT / RADIO */
+.cg { display:grid; gap:8px; }
+.co { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; border:1.5px solid #dbe7ea; border-radius:8px; cursor:pointer; transition:border-color .2s,background .2s; }
+.co:has(input:checked) { border-color:var(--sd); background:rgba(31,138,156,.05); }
+.co input { width:15px; height:15px; flex-shrink:0; margin-top:2px; accent-color:var(--sd); }
+.co-text { font-size:13px; color:var(--is); line-height:1.6; }
+.co-text small { display:block; font-size:11px; color:var(--im); margin-top:2px; }
+
+/* CONDITIONAL BOX */
+.cond { display:none; background:#fff7e8; border:1px solid rgba(239,157,26,.35); border-radius:10px; padding:14px 16px; }
+.cond.show { display:block; }
+.cond-lbl { font-size:12px; color:var(--sund); font-weight:600; margin-bottom:10px; }
+
+/* REFERRAL */
+.ri { background:#eef8f3; border:1px solid rgba(31,138,156,.18); border-radius:10px; padding:14px 16px; }
+.ri-lbl { font-size:12px; color:#20705a; font-weight:500; margin-bottom:8px; }
+
+/* NOTE */
+.slot-note { font-size:11.5px; color:var(--im); line-height:1.7; margin-top:4px; }
+
+/* SUBMIT */
+.sub-btn { width:100%; padding:16px; background:linear-gradient(135deg,var(--sk),var(--sd)); color:white; border:none; border-radius:10px; font-family:'Shippori Mincho',serif; font-size:17px; font-weight:600; cursor:pointer; transition:transform .2s,box-shadow .2s; letter-spacing:.1em; margin-top:24px; }
+.sub-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(18,97,110,.3); }
+.priv { font-size:11px; color:var(--im); text-align:center; margin-top:10px; line-height:1.7; }
+
+/* SUCCESS */
+.sov { display:none; position:fixed; inset:0; background:rgba(238,246,248,.97); z-index:2000; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; }
+.sov.show { display:flex; }
+.sov-icon { font-size:60px; margin-bottom:16px; animation:fl 3s ease-in-out infinite; }
+.sov-title { font-family:'Shippori Mincho',serif; font-size:24px; font-weight:600; color:var(--sk); margin-bottom:12px; }
+.sov-msg { font-size:14px; color:var(--is); line-height:2; margin-bottom:20px; max-width:340px; }
+.line-btn { display:block; width:100%; max-width:300px; margin:0 auto 14px; padding:17px 14px; background:#06C755; color:white; border:none; border-radius:12px; font-family:'Shippori Mincho',serif; font-size:17px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; letter-spacing:.06em; animation:pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(6,199,85,.5)} 50%{box-shadow:0 0 0 12px rgba(6,199,85,0)} }
+.sov-warn { display:inline-block; background:#fff3cd; color:#8a5a00; border:1.5px solid #f0c36d; border-radius:100px; padding:7px 18px; font-size:13px; font-weight:700; margin-bottom:14px; }
+.line-guide { font-size:14px; color:var(--sk); line-height:1.95; margin-bottom:8px; font-weight:500; max-width:360px; }
+.line-guide strong { color:#06813a; font-size:15px; }
+.line-arrow { color:#06C755; font-size:24px; line-height:1; margin-bottom:8px; animation:bounce 1.2s ease-in-out infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.back-btn { padding:10px 28px; background:white; color:var(--is); border:1.5px solid #dbe7ea; border-radius:8px; font-family:'Shippori Mincho',serif; font-size:14px; cursor:pointer; }
+
+@media (max-width:600px) {
+.fr { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SUCCESS -->
+<div class="sov" id="sov">
+<div class="sov-icon">📲</div>
+<div class="sov-warn">⚠️ まだお申し込みは完了していません</div>
+<div class="sov-title">あと1ステップで完了です</div>
+<div class="sov-msg" id="sovMsg"></div>
+<div class="line-guide">下の緑のボタンを押して LINE で送信すると、<br><strong>お申し込みが完了します。</strong><br>ボタンを押さないと予約は受け付けられませんので、<br>必ず最後まで送信してください。</div>
+<div class="line-arrow">▼</div>
+<a class="line-btn" id="lineBtn" href="#" target="_blank">📲 LINEで送信して申し込みを完了する</a>
+<button class="back-btn" onclick="document.getElementById('sov').classList.remove('show')">入力に戻る</button>
+</div>
+
+<!-- ===== BOOKING ===== -->
+<div class="page active" id="page-booking">
+<div class="hero">
+<div class="sakura-float">🌻</div>
+<div class="hero-eye">Summer Special 2026</div>
+<h1 class="hero-title">夏休み<span>特別撮影会</span></h1>
+<div class="half-badge">✨ 通常の半額以下 ✨</div>
+<p class="hero-sub">お盆の3日間限定。<strong style="color:var(--sd);">グレーバック背景</strong>で人物の表情が際立つ記念撮影会です。1組30分・3カットデータ付き。おひとりでも、ご家族みんなでも、ペットとご一緒でも大歓迎です。</p>
+<div class="chips">
+<div class="chip">📅 8/13・14・15</div>
+<div class="chip">🕙 10:00〜15:00（1組30分）</div>
+<div class="chip">📸 グレーバック背景</div>
+<div class="chip">🐾 ペットOK</div>
+</div>
+</div>
+
+<div class="fw">
+<div class="form-card">
+<div class="form-title">📝 夏休み特別撮影会 お申し込みフォーム</div>
+
+<!-- ① 代表者 -->
+<div class="form-sec">① お申込者（代表者）さま</div>
+<div class="fg-wrap">
+<div class="fr">
+<div class="fg"><div class="fl">代表者 お名前（姓）<span class="req">必須</span></div><input type="text" id="repLast" placeholder="糸島"></div>
+<div class="fg"><div class="fl">代表者 お名前（名）<span class="req">必須</span></div><input type="text" id="repFirst" placeholder="花子"></div>
+</div>
+<div class="fr">
+<div class="fg"><div class="fl">フリガナ（セイ）<span class="req">必須</span></div><input type="text" id="repLastKana" placeholder="イトシマ"></div>
+<div class="fg"><div class="fl">フリガナ（メイ）<span class="req">必須</span></div><input type="text" id="repFirstKana" placeholder="ハナコ"></div>
+</div>
+<div class="fg"><div class="fl">電話番号<span class="req">必須</span></div><input type="tel" id="phone" placeholder="090-1234-5678"></div>
+<div class="fg"><div class="fl">メールアドレス<span class="req">必須</span></div><input type="email" id="email" placeholder="hanako@example.com"></div>
+<div class="fg"><div class="fl">ご住所<span class="req">必須</span></div><input type="text" id="address" placeholder="福岡県糸島市前原中央〇〇"></div>
+</div>
+
+<!-- ② 主役 -->
+<div class="form-sec">② 撮影の主役さま（お子様・ご家族・ペットなど）</div>
+<div class="fg-wrap">
+<div class="fr">
+<div class="fg"><div class="fl">主役 お名前（姓）<span class="req">必須</span></div><input type="text" id="starLast" placeholder="糸島"></div>
+<div class="fg"><div class="fl">主役 お名前（名）<span class="req">必須</span></div><input type="text" id="starFirst" placeholder="太郎"></div>
+</div>
+<div class="fr">
+<div class="fg"><div class="fl">フリガナ（セイ）<span class="opt">任意</span></div><input type="text" id="starLastKana" placeholder="イトシマ"></div>
+<div class="fg"><div class="fl">フリガナ（メイ）<span class="opt">任意</span></div><input type="text" id="starFirstKana" placeholder="タロウ"></div>
+</div>
+<div class="fg">
+<div class="fl">性別<span class="opt">任意</span></div>
+<select id="gender">
+<option value="">お選びください</option>
+<option>男の子</option>
+<option>女の子</option>
+<option>男性</option>
+<option>女性</option>
+<option>ペット</option>
+<option>その他・回答しない</option>
+</select>
+</div>
+<div class="fg">
+<div class="fl">生年月日<span class="opt">任意</span></div>
+<input type="date" id="birth" onchange="updateAge()" oninput="updateAge()">
+</div>
+<div class="fg">
+<div class="fl">ご年齢（自動計算）</div>
+<div class="age-note empty" id="ageNote">生年月日を入れると、年齢・月齢が自動で表示されます（任意）。</div>
+</div>
+</div>
+
+<!-- ③ プラン -->
+<div class="form-sec">③ ご希望のプラン</div>
+<div class="fg-wrap">
+<div class="fg">
+<div class="fl">プラン<span class="req">必須</span></div>
+<div class="plans">
+<label class="plan"><input type="radio" name="plan" value="3カットデータ付き（11,000円）"><div class="plan-body"><div class="plan-name">3カット データ付き</div><div class="plan-price">11,000円<small>税込</small></div><div class="plan-desc">グレーバック背景で撮影。厳選3カットをデータでお渡しします。</div></div></label>
+<label class="plan"><input type="radio" name="plan" value="3カット以上ご希望（16,500円）"><div class="plan-body"><div class="plan-name">3カット以上 ご希望</div><div class="plan-price">16,500円<small>税込</small></div><div class="plan-desc">たっぷり撮影したい方に。3カットを超えるデータをお渡しします。</div></div></label>
+</div>
+</div>
+<div class="fg">
+<div class="fl">撮影人数<span class="req">必須</span></div>
+<div class="fr">
+<div class="fg"><div class="fl" style="font-weight:400;color:var(--im);">大人（名）</div><input type="number" id="adults" min="0" max="50" inputmode="numeric" placeholder="2" oninput="updateTotal()"></div>
+<div class="fg"><div class="fl" style="font-weight:400;color:var(--im);">お子様（名）</div><input type="number" id="kids" min="0" max="50" inputmode="numeric" placeholder="1" oninput="updateTotal()"></div>
+</div>
+<div class="age-note empty" id="totalNote">大人・お子様の人数を入れると、合計人数が表示されます。おひとりでも複数人でもOKです。</div>
+</div>
+<div class="fg">
+<div class="fl">ペットの同伴<span class="req">必須</span></div>
+<div class="cg">
+<label class="co"><input type="radio" name="pet" value="あり" onchange="onPetChange()"><div class="co-text">ペットと一緒に撮影する<small>ワンちゃん・ネコちゃんなどご一緒に撮影できます</small></div></label>
+<label class="co"><input type="radio" name="pet" value="なし" onchange="onPetChange()"><div class="co-text">ペットの同伴はなし</div></label>
+</div>
+<div class="cond" id="petBox" style="margin-top:8px;">
+<div class="cond-lbl">🐾 ペットについて（種類・頭数）</div>
+<input type="text" id="petDetail" placeholder="例：トイプードル 1匹、猫 2匹 など">
+</div>
+</div>
+</div>
+
+<!-- ④ 希望日時 -->
+<div class="form-sec">④ ご希望の日時</div>
+<div class="fg-wrap">
+<div class="fr">
+<div class="fg"><div class="fl">第一希望日<span class="req">必須</span></div>
+<select id="date1">
+<option value="">お選びください</option>
+<option>8月13日（木）</option>
+<option>8月14日（金）</option>
+<option>8月15日（土）</option>
+</select>
+</div>
+<div class="fg"><div class="fl">第一希望 時間帯<span class="req">必須</span></div>
+<select id="time1">
+<option value="">お選びください</option>
+<option>10:00〜10:30</option>
+<option>10:30〜11:00</option>
+<option>11:00〜11:30</option>
+<option>11:30〜12:00</option>
+<option>12:00〜12:30</option>
+<option>12:30〜13:00</option>
+<option>13:00〜13:30</option>
+<option>13:30〜14:00</option>
+<option>14:00〜14:30</option>
+<option>14:30〜15:00</option>
+</select>
+</div>
+</div>
+<div class="fr">
+<div class="fg"><div class="fl">第二希望日<span class="req">必須</span></div>
+<select id="date2">
+<option value="">お選びください</option>
+<option>8月13日（木）</option>
+<option>8月14日（金）</option>
+<option>8月15日（土）</option>
+</select>
+</div>
+<div class="fg"><div class="fl">第二希望 時間帯<span class="req">必須</span></div>
+<select id="time2">
+<option value="">お選びください</option>
+<option>10:00〜10:30</option>
+<option>10:30〜11:00</option>
+<option>11:00〜11:30</option>
+<option>11:30〜12:00</option>
+<option>12:00〜12:30</option>
+<option>12:30〜13:00</option>
+<option>13:00〜13:30</option>
+<option>13:30〜14:00</option>
+<option>14:00〜14:30</option>
+<option>14:30〜15:00</option>
+</select>
+</div>
+</div>
+<div class="slot-note">※ 各日10組の限定枠です。ご希望が重なった場合は、最終的な時間をLINEにて個別に調整・確定させていただきます。</div>
+</div>
+
+<!-- ⑤ その他 -->
+<div class="form-sec">⑤ その他</div>
+<div class="fg-wrap">
+<div class="fg">
+<div class="fl">SNS・HP・チラシ等での写真掲載について<span class="req">必須</span></div>
+<div class="cg">
+<label class="co"><input type="radio" name="consent" value="all" checked><div class="co-text">掲載可（SNS・HP・チラシ等）<small>Instagram・ホームページ・チラシ等への掲載にご協力をお願いいたします</small></div></label>
+<label class="co"><input type="radio" name="consent" value="none"><div class="co-text">掲載は不可</div></label>
+</div>
+</div>
+<div class="ri">
+<div class="ri-lbl">👫 ご紹介者のお名前<span class="opt" style="margin-left:6px;">任意</span></div>
+<input type="text" id="referrer" placeholder="例：山田 太郎 様にご紹介いただきました">
+</div>
+<div class="fg">
+<div class="fl">ご相談・ご要望／撮影への意気込み<span class="opt">任意</span></div>
+<textarea id="request" placeholder="ご相談・ご要望、撮影への意気込みなど、なんでも自由にお書きください。"></textarea>
+</div>
+</div>
+
+<button class="sub-btn" onclick="doSubmit()">🌻 入力内容を確認する 🌻</button>
+<p class="priv" style="color:#8a5a00;font-weight:600;">※ このボタンの後、確認画面の【LINEで送信】ボタンを押すとお申し込みが完了します。</p>
+<p class="priv">ご入力いただいた情報は予約管理・ご連絡の目的のみに使用します。第三者への提供は一切行いません。</p>
+</div>
+</div>
+</div>
+
+<script>
+// ===== GASスプレッドシート記録（LINEボタンを押した時に送信する方式） =====
+var GAS_URL = 'https://script.google.com/macros/s/AKfycbyl3fmLxCykiJQs48Erqu7q54bF17CI6cKaKPYarfxvAY5VJlIM2gTYxHw0bnZYT6j-/exec';
+
+var pendingPayload = null;
+
+function sendToSheet(payload) {
+var body = JSON.stringify(payload);
+try {
+if (navigator.sendBeacon) {
+var blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });
+if (navigator.sendBeacon(GAS_URL, blob)) return true;
+}
+} catch(e) { console.log('beacon error:', e); }
+try {
+return fetch(GAS_URL, { method:'POST', mode:'no-cors', keepalive:true, body:body })
+.catch(function(err){ console.log('sheet send error:', err); });
+} catch(e) { console.log('sheet send error:', e); }
+}
+
+function getVal(id) { var el=document.getElementById(id); return el?(el.value||'').trim():''; }
+
+// ===== 生年月日 → 年齢・月齢 =====
+function calcAge(bdStr) {
+if (!bdStr) return null;
+var b = new Date(bdStr + 'T00:00:00');
+if (isNaN(b.getTime())) return null;
+var n = new Date();
+if (b > n) return { invalid:true };
+var months = (n.getFullYear()-b.getFullYear())*12 + (n.getMonth()-b.getMonth());
+if (n.getDate() < b.getDate()) months--;
+if (months < 0) months = 0;
+var years = Math.floor(months/12);
+var rem = months % 12;
+return { years:years, remMonths:rem, totalMonths:months };
+}
+function updateAge() {
+var note = document.getElementById('ageNote');
+var a = calcAge(getVal('birth'));
+if (!a) { note.className='age-note empty'; note.textContent='生年月日を入れると、年齢・月齢が自動で表示されます（任意）。'; return; }
+if (a.invalid) { note.className='age-note empty'; note.textContent='未来の日付が入力されています。ご確認ください。'; return; }
+note.className = 'age-note';
+note.textContent = '満 ' + a.years + '歳' + a.remMonths + 'ヶ月（月齢 ' + a.totalMonths + 'ヶ月）';
+}
+function ageLabel() { var a = calcAge(getVal('birth')); if (!a || a.invalid) return ''; return '満' + a.years + '歳' + a.remMonths + 'ヶ月'; }
+function monthsLabel() { var a = calcAge(getVal('birth')); if (!a || a.invalid) return ''; return a.totalMonths + 'ヶ月'; }
+
+// ===== ペット条件分岐 =====
+function onPetChange() {
+var box = document.getElementById('petBox');
+var p = document.querySelector('input[name="pet"]:checked');
+if (p && p.value === 'あり') box.classList.add('show');
+else { box.classList.remove('show'); document.getElementById('petDetail').value=''; }
+}
+
+// ===== 撮影人数 → 合計 =====
+function num(id){ var v=parseInt(getVal(id),10); return (isNaN(v)||v<0)?0:v; }
+function updateTotal() {
+var note=document.getElementById('totalNote');
+var a=num('adults'), k=num('kids'), t=a+k;
+if (getVal('adults')==='' && getVal('kids')==='') {
+note.className='age-note empty'; note.textContent='大人・お子様の人数を入れると、合計人数が表示されます。おひとりでも複数人でもOKです。'; return;
+}
+note.className='age-note';
+note.textContent='合計 '+t+'名（大人 '+a+'名・お子様 '+k+'名）';
+}
+
+// ===== SUBMIT =====
+function doSubmit() {
+var repLast=getVal('repLast'), repFirst=getVal('repFirst');
+var repLk=getVal('repLastKana'), repFk=getVal('repFirstKana');
+var phone=getVal('phone'), email=getVal('email'), address=getVal('address');
+var starLast=getVal('starLast'), starFirst=getVal('starFirst');
+var starLk=getVal('starLastKana'), starFk=getVal('starFirstKana');
+var gender=getVal('gender'), birth=getVal('birth');
+var date1=getVal('date1'), time1=getVal('time1');
+var date2=getVal('date2'), time2=getVal('time2');
+var adults=num('adults'), kids=num('kids'), total=adults+kids;
+
+if (!repLast||!repFirst) { alert('代表者のお名前をご入力ください。'); return; }
+if (!repLk||!repFk) { alert('代表者のフリガナをご入力ください。'); return; }
+if (!phone) { alert('電話番号をご入力ください。'); return; }
+if (!email) { alert('メールアドレスをご入力ください。'); return; }
+if (!address) { alert('ご住所をご入力ください。'); return; }
+if (!starLast||!starFirst){ alert('撮影主役のお名前をご入力ください。'); return; }
+
+var pe=document.querySelector('input[name="plan"]:checked');
+if (!pe) { alert('ご希望のプランをお選びください。'); return; }
+var plan = pe.value;
+
+if (total < 1) { alert('撮影人数（大人・お子様）をご入力ください。'); return; }
+
+var pet=document.querySelector('input[name="pet"]:checked');
+if (!pet) { alert('ペットの同伴の有無をお選びください。'); return; }
+var petV = pet.value;
+var petDetail = getVal('petDetail');
+var petLabel = (petV==='あり') ? ('あり' + (petDetail?'（'+petDetail+'）':'')) : 'なし';
+
+if (!date1||!time1) { alert('第一希望の日付と時間帯をご入力ください。'); return; }
+if (!date2||!time2) { alert('第二希望の日付と時間帯をご入力ください。'); return; }
+
+var ce=document.querySelector('input[name="consent"]:checked');
+var consentV = ce?ce.value:'none';
+var consentL = consentV==='all' ? '掲載可（SNS・HP・チラシ等）' : '掲載不可';
+var referrer=getVal('referrer'), request=getVal('request');
+var ageL=ageLabel(), monL=monthsLabel();
+var repName=repLast+' '+repFirst, repKana=repLk+' '+repFk;
+var starName=starLast+' '+starFirst;
+var starKana=(starLk||starFk)?(starLk+' '+starFk).trim():'';
+
+var requestForSheet = (petV==='あり' ? ('【ペット同伴】'+petLabel+(request?' / ':'')) : '') + request;
+
+pendingPayload = {
+'受付種別': '夏休み特別撮影会',
+'代表者氏名': repName,
+'代表者フリガナ': repKana,
+'電話番号': phone,
+'メールアドレス': email,
+'ご住所': address,
+'撮影主役氏名': starName,
+'撮影主役フリガナ': starKana,
+'性別': gender,
+'生年月日': birth,
+'年齢（満）': ageL,
+'月齢': monL,
+'撮影メニュー': '夏休み特別撮影会（グレーバック）／ ' + plan,
+'着物（レンタル／持ち込み）': '',
+'全データプラン（＋11,000円）': '',
+'撮影場所': 'スタジオ（グレーバック背景）',
+'ご希望の撮影場所': (petV==='あり' ? ('ペット同伴：'+petLabel) : ''),
+'第一希望日': date1,
+'第一希望時間帯': time1,
+'第二希望日': date2,
+'第二希望時間帯': time2,
+'撮影人数（大人）': String(adults),
+'撮影人数（お子様）': String(kids),
+'撮影人数（合計）': String(total),
+'写真掲載可否': consentL,
+'ご紹介者': referrer,
+'ご相談・ご要望・意気込み': requestForSheet
+};
+
+var msg = '【糸島写真館 夏休み特別撮影会 お申し込み】\n'
++'------------\n'
++'代表者：'+repName+'（'+repKana+'）\n'
++'電話番号：'+phone+'\n'
++'メール：'+email+'\n'
++'住所：'+address+'\n'
++'------------\n'
++'主役：'+starName+(starKana?'（'+starKana+'）':'')+'\n'
++(gender?'性別：'+gender+'\n':'')
++(birth?'生年月日：'+birth+(ageL?'（'+ageL+' / 月齢'+monL+'）':'')+'\n':'')
++'------------\n'
++'プラン：'+plan+'\n'
++'撮影人数：合計'+total+'名（大人'+adults+'・お子様'+kids+'）\n'
++'ペット：'+petLabel+'\n'
++'第一希望：'+date1+' '+time1+'\n'
++'第二希望：'+date2+' '+time2+'\n'
++'写真掲載：'+consentL+'\n'
++(referrer?'紹介者：'+referrer+'\n':'')
++(request?'ご相談・意気込み：'+request+'\n':'')
++'------------';
+
+var lineBtn = document.getElementById('lineBtn');
+lineBtn.href = 'https://line.me/R/oaMessage/@itoshima.camera/?'+encodeURIComponent(msg);
+lineBtn.onclick = function() { if (pendingPayload) { sendToSheet(pendingPayload); pendingPayload = null; } };
+
+document.getElementById('sovMsg').innerHTML =
+'<strong>'+repName+' 様</strong><br><br>'
++'夏休み特別撮影会<br>'
++plan+'<br>'
++'第一希望：'+date1+' '+time1+'<br>'
++'上記の内容でお申し込みを受け付けます。'
++(referrer?'<br><br>🎁 紹介特典（データ+5カット）を適用いたします。':'');
+document.getElementById('sov').classList.add('show');
+resetForm();
+}
+
+function resetForm() {
+['repLast','repFirst','repLastKana','repFirstKana','phone','email','address',
+'starLast','starFirst','starLastKana','starFirstKana','birth',
+'petDetail','adults','kids','referrer','request'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+['gender','date1','time1','date2','time2'].forEach(function(id){ var el=document.getElementById(id); if(el) el.selectedIndex=0; });
+var r=document.querySelector('input[name="consent"][value="all"]'); if(r) r.checked=true;
+var pl=document.querySelector('input[name="plan"]:checked'); if(pl) pl.checked=false;
+var pt=document.querySelector('input[name="pet"]:checked'); if(pt) pt.checked=false;
+document.getElementById('petBox').classList.remove('show');
+updateAge();
+updateTotal();
+}
+
+// Init
+updateAge();
+updateTotal();
+</script>
+</body>
+</html>

@@ -82,10 +82,15 @@ textarea { resize:vertical; min-height:80px; }
 .line-btn { display:block; width:100%; max-width:300px; margin:0 auto 14px; padding:17px 14px; background:#06C755; color:white; border:none; border-radius:12px; font-family:'Shippori Mincho',serif; font-size:17px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; letter-spacing:.06em; animation:pulse 1.6s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(6,199,85,.5)} 50%{box-shadow:0 0 0 12px rgba(6,199,85,0)} }
 .sov-warn { display:inline-block; background:#fff3cd; color:#8a5a00; border:1.5px solid #f0c36d; border-radius:100px; padding:7px 18px; font-size:13px; font-weight:700; margin-bottom:14px; }
-.line-guide { font-size:14px; color:var(--sk); line-height:1.95; margin-bottom:8px; font-weight:500; max-width:360px; }
-.line-guide strong { color:#06813a; font-size:15px; }
-.line-arrow { color:#06C755; font-size:24px; line-height:1; margin-bottom:8px; animation:bounce 1.2s ease-in-out infinite; }
-@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.steps { text-align:left; max-width:340px; margin:0 auto 16px; display:grid; gap:10px; }
+.step { display:flex; gap:10px; align-items:flex-start; background:white; border:1px solid rgba(232,160,176,.4); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--is); line-height:1.65; }
+.step.step-hi { border:1.5px solid #06C755; }
+.step-no { width:24px; height:24px; border-radius:50%; background:#06C755; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0; }
+.line-mock { display:flex; align-items:center; gap:8px; background:#faf6f7; border-radius:22px; padding:6px 6px 6px 12px; margin-top:8px; }
+.line-mock-text { flex:1; font-size:11px; color:#b09aa0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.line-send { width:34px; height:34px; border-radius:50%; background:#1f9fd6; display:flex; align-items:center; justify-content:center; flex-shrink:0; animation:pulseblue 1.5s ease-in-out infinite; }
+@keyframes pulseblue { 0%,100%{box-shadow:0 0 0 0 rgba(31,159,214,.55)} 50%{box-shadow:0 0 0 9px rgba(31,159,214,0)} }
+.line-mock-cap { text-align:right; font-size:12px; color:#1f8ac0; font-weight:600; margin-top:6px; }
 .back-btn { padding:10px 28px; background:white; color:var(--is); border:1.5px solid #e8dde0; border-radius:8px; font-family:'Shippori Mincho',serif; font-size:14px; cursor:pointer; }
 
 @media (max-width:600px) {
@@ -99,11 +104,16 @@ textarea { resize:vertical; min-height:80px; }
 <div class="sov" id="sov">
 <div class="sov-icon">📲</div>
 <div class="sov-warn">⚠️ まだお申し込みは完了していません</div>
-<div class="sov-title">あと1ステップで完了です</div>
+<div class="sov-title">あと2ステップで完了です</div>
 <div class="sov-msg" id="sovMsg"></div>
-<div class="line-guide">下の緑のボタンを押して LINE で送信すると、<br><strong>お申し込みが完了します。</strong><br>ボタンを押さないと予約は受け付けられませんので、<br>必ず最後まで送信してください。</div>
-<div class="line-arrow">▼</div>
-<a class="line-btn" id="lineBtn" href="#" target="_blank">📲 LINEで送信して申し込みを完了する</a>
+<div class="steps">
+<div class="step"><span class="step-no">1</span><div>下の緑のボタンを押す → <strong>LINEが開きます</strong></div></div>
+<div class="step step-hi"><span class="step-no">2</span><div>メッセージ入力欄に文章が入っています。その<strong style="color:#1f8ac0;">右横にある水色の送信ボタン</strong>を押すと完了！
+<div class="line-mock"><span class="line-mock-text">【糸島写真館 撮影お申し込み】…</span><span class="line-send"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></span></div>
+<div class="line-mock-cap">👆 この水色のボタンを押してね</div>
+</div></div>
+</div>
+<a class="line-btn" id="lineBtn" href="#" target="_blank">📲 LINEで送信する画面へ進む</a>
 <button class="back-btn" onclick="document.getElementById('sov').classList.remove('show')">入力に戻る</button>
 </div>
 
@@ -272,7 +282,7 @@ textarea { resize:vertical; min-height:80px; }
 </div>
 
 <button class="sub-btn" onclick="doSubmit()">📷 入力内容を確認する 📷</button>
-<p class="priv" style="color:#8a5a00;font-weight:600;">※ このボタンの後、確認画面の【LINEで送信】ボタンを押すとお申し込みが完了します。</p>
+<p class="priv" style="color:#8a5a00;font-weight:600;">※ このあと確認画面が出ます。最後にLINEを開いて、メッセージ入力欄の右横にある水色の送信ボタンを押すと、お申し込み完了です。</p>
 <p class="priv">ご入力いただいた情報は予約管理・ご連絡の目的のみに使用します。第三者への提供は一切行いません。</p>
 </div>
 </div>

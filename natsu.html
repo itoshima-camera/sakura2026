@@ -345,6 +345,8 @@ return fetch(GAS_URL, { method:'POST', mode:'no-cors', keepalive:true, body:body
 }
 
 function getVal(id) { var el=document.getElementById(id); return el?(el.value||'').trim():''; }
+/* 「8月13日（木）」→「2026/08/13」に変換（スプレッドシート記録用） */
+function jpToIso(s){ if(!s) return ''; var m=String(s).match(/(\d{1,2})月(\d{1,2})日/); if(!m) return s; return '2026/'+('0'+m[1]).slice(-2)+'/'+('0'+m[2]).slice(-2); }
 
 // ===== 生年月日 → 年齢・月齢 =====
 function calcAge(bdStr) {
@@ -466,9 +468,9 @@ pendingPayload = {
 '全データプラン（＋11,000円）': allDataLabel,
 '撮影場所': 'スタジオ（グレーバック背景）',
 'ご希望の撮影場所': (petV==='あり' ? ('ペット同伴：'+petLabel) : ''),
-'第一希望日': date1,
+'第一希望日': jpToIso(date1),
 '第一希望時間帯': time1,
-'第二希望日': date2,
+'第二希望日': jpToIso(date2),
 '第二希望時間帯': time2,
 '撮影人数（大人）': String(adults),
 '撮影人数（お子様）': String(kids),

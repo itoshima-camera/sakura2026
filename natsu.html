@@ -163,9 +163,9 @@ textarea { resize:vertical; min-height:80px; }
 <div class="fg"><div class="fl">フリガナ（セイ）<span class="req">必須</span></div><input type="text" id="repLastKana" placeholder="イトシマ"></div>
 <div class="fg"><div class="fl">フリガナ（メイ）<span class="req">必須</span></div><input type="text" id="repFirstKana" placeholder="ハナコ"></div>
 </div>
-<div class="fg"><div class="fl">電話番号<span class="req">必須</span></div><input type="tel" id="phone" placeholder="090-1234-5678"></div>
-<div class="fg"><div class="fl">メールアドレス<span class="req">必須</span></div><input type="email" id="email" placeholder="hanako@example.com"></div>
-<div class="fg"><div class="fl">ご住所<span class="req">必須</span></div><input type="text" id="address" placeholder="福岡県糸島市前原中央〇〇"></div>
+<div class="fg"><div class="fl">電話番号<span class="req">必須</span></div><input type="tel" id="phone" autocomplete="tel" placeholder="090-1234-5678"></div>
+<div class="fg"><div class="fl">メールアドレス<span class="req">必須</span></div><input type="email" id="email" autocomplete="email" placeholder="hanako@example.com"></div>
+<div class="fg"><div class="fl">ご住所<span class="req">必須</span></div><input type="text" id="address" autocomplete="street-address" placeholder="福岡県糸島市前原中央〇〇"></div>
 </div>
 
 <!-- ② 主役 -->
@@ -419,6 +419,8 @@ if (!repLk||!repFk) { alert('代表者のフリガナをご入力ください。
 if (!phone) { alert('電話番号をご入力ください。'); return; }
 if (!email) { alert('メールアドレスをご入力ください。'); return; }
 if (!address) { alert('ご住所をご入力ください。'); return; }
+if (address.indexOf('@') !== -1) { alert('ご住所の欄にメールアドレス（@を含む文字）が入っているようです。自動入力でメールが入ってしまうことがあります。ご住所を正しくご入力ください。'); return; }
+if (email.indexOf('@') === -1) { alert('メールアドレスの形式をご確認ください（@が含まれていません）。'); return; }
 if (!starLast||!starFirst){ alert('撮影主役のお名前をご入力ください。'); return; }
 
 var allDataEl=document.getElementById('allData');
